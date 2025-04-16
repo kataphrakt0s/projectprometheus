@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://ba8suv072iqeh"]
+
+[ext_resource type="Texture2D" uid="uid://bspn0px3n6q1l" path="res://Spritesheets/roguelikeChar_transparent.png" id="1_lnhip"]
+
+[resource]
+atlas = ExtResource("1_lnhip")
+region = Rect2(0, 0, 16, 16)
+filter_clip = true

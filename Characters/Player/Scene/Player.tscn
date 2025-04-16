@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqlqhfwpavybn"]
+
+[ext_resource type="Texture2D" uid="uid://ba8suv072iqeh" path="res://Equipment/Body/Textures/BodyType1.tres" id="1_aj84o"]
+[ext_resource type="Texture2D" uid="uid://bspn0px3n6q1l" path="res://Spritesheets/roguelikeChar_transparent.png" id="2_6mep6"]
+[ext_resource type="Texture2D" uid="uid://b0a5tdmcsbb57" path="res://Equipment/Clothing/Textures/StarterTunic.tres" id="2_oc658"]
+[ext_resource type="Texture2D" uid="uid://dx0lg0p8rtmcn" path="res://Equipment/Hair/Textures/DefaultHair.tres" id="3_11ham"]
+[ext_resource type="Texture2D" uid="uid://wybjn4j705fo" path="res://Equipment/Equipment/Textures/WoodenBuckler.tres" id="5_oc658"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpjpg"]
+atlas = ExtResource("2_6mep6")
+region = Rect2(714, 119, 16, 16)
+
+[node name="Player" type="Node2D"]
+
+[node name="CharacterSprites" type="Node2D" parent="."]
+
+[node name="Body" type="Node2D" parent="CharacterSprites"]
+
+[node name="BodySprite" type="Sprite2D" parent="CharacterSprites/Body"]
+texture = ExtResource("1_aj84o")
+centered = false
+
+[node name="Clothing" type="Node2D" parent="CharacterSprites"]
+
+[node name="ClothingSprite" type="Sprite2D" parent="CharacterSprites/Clothing"]
+texture = ExtResource("2_oc658")
+centered = false
+
+[node name="Equipment" type="Node2D" parent="CharacterSprites"]
+
+[node name="Equipment1Sprite" type="Sprite2D" parent="CharacterSprites/Equipment"]
+texture = SubResource("AtlasTexture_vpjpg")
+centered = false
+
+[node name="Equipment2Sprite" type="Sprite2D" parent="CharacterSprites/Equipment"]
+texture = ExtResource("5_oc658")
+centered = false
+
+[node name="Hair" type="Node2D" parent="CharacterSprites"]
+
+[node name="HairSprite" type="Sprite2D" parent="CharacterSprites/Hair"]
+texture = ExtResource("3_11ham")
+centered = false
+
+[node name="Helmet" type="Node2D" parent="CharacterSprites"]
+
+[node name="HelmetSprite" type="Sprite2D" parent="CharacterSprites/Helmet"]
+centered = false

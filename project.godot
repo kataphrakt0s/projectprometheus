@@ -11,5 +11,27 @@ config_version=5
 [application]
 
 config/name="ProjectPrometheus"
+run/main_scene="uid://b3bpeu6j508oa"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_height"
+window/stretch/scale_mode="integer"
+
+[file_customization]
+
+folder_colors={
+"res://Characters/": "yellow",
+"res://Equipment/": "teal",
+"res://Spritesheets/": "red",
+"res://UI/": "green",
+"res://World/": "purple"
+}
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+2d/snap/snap_2d_vertices_to_pixel=true
