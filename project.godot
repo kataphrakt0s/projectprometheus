@@ -15,10 +15,16 @@ run/main_scene="uid://b3bpeu6j508oa"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Actors="*res://Scripts/Autoloads/Actors.gd"
+
 [display]
 
-window/stretch/mode="viewport"
-window/stretch/aspect="keep_height"
+window/size/viewport_width=959
+window/size/viewport_height=539
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
 
 [file_customization]
@@ -26,10 +32,15 @@ window/stretch/scale_mode="integer"
 folder_colors={
 "res://Characters/": "yellow",
 "res://Equipment/": "teal",
+"res://Scripts/": "blue",
 "res://Spritesheets/": "red",
 "res://UI/": "green",
 "res://World/": "purple"
 }
+
+[global_group]
+
+Selectable="Nodes that can be selected by the cursor"
 
 [rendering]
 

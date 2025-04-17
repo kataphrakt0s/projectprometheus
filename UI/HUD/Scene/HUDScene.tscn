@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://dwk66kro0a4c6"]
+[gd_scene load_steps=3 format=3 uid="uid://dwk66kro0a4c6"]
+
+[ext_resource type="Texture2D" uid="uid://r1cg6lmctlrw" path="res://UI/HUD/Textures/EmptySprite.tres" id="1_7ferd"]
+[ext_resource type="Script" uid="uid://keftbu82jl6n" path="res://UI/HUD/Scene/HUDInterface.gd" id="1_n5lrx"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -7,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_n5lrx")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 1
@@ -15,18 +19,61 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-ratio = 1.54
+ratio = 1.75
 
-[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="ZoneLabel" type="Label" parent="AspectRatioContainer/VBoxContainer"]
+[node name="TopBar" type="HBoxContainer" parent="AspectRatioContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
+
+[node name="ZoneLabel" type="Label" parent="AspectRatioContainer/MarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 10
 size_flags_vertical = 0
 text = "Test Zone"
 
-[node name="DebugInfo" type="HFlowContainer" parent="AspectRatioContainer"]
+[node name="BottomBar" type="HBoxContainer" parent="AspectRatioContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="SelectedPanel" type="PanelContainer" parent="AspectRatioContainer/MarginContainer/VBoxContainer/BottomBar"]
+custom_minimum_size = Vector2(24, 36)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer/MarginContainer/VBoxContainer/BottomBar/SelectedPanel"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/MarginContainer/VBoxContainer/BottomBar/SelectedPanel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="SelectedTextureRect" type="TextureRect" parent="AspectRatioContainer/MarginContainer/VBoxContainer/BottomBar/SelectedPanel/HBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("1_7ferd")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="MarginContainer2" type="MarginContainer" parent="AspectRatioContainer/MarginContainer/VBoxContainer/BottomBar/SelectedPanel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 4
+
+[node name="SelectedLabel" type="Label" parent="AspectRatioContainer/MarginContainer/VBoxContainer/BottomBar/SelectedPanel/HBoxContainer/MarginContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Test"
+max_lines_visible = 1
+
+[node name="DebugInfo" type="HFlowContainer" parent="AspectRatioContainer/MarginContainer"]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 size_flags_horizontal = 0
