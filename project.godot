@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Actors="*res://Scripts/Autoloads/Actors.gd"
+GlobalRef="*res://Scripts/Autoloads/Global.gd"
 
 [display]
 

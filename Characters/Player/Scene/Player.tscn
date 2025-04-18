@@ -18,6 +18,7 @@ script = ExtResource("1_vdi7l")
 
 [node name="Pathfinder" type="Node2D" parent="."]
 script = ExtResource("8_4rift")
+debug_draw = false
 
 [node name="CharacterSprites" type="Node2D" parent="."]
 

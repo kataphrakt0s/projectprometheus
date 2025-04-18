@@ -4,8 +4,8 @@ const EMPTY_SPRITE = preload("res://UI/HUD/Textures/EmptySprite.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Actors.player.ui_texture_loaded.connect(update_selected)
-	Actors.cursor.selection_changed.connect(update_selected)
+	GlobalRef.player.ui_texture_loaded.connect(update_selected)
+	GlobalRef.cursor.selection_changed.connect(update_selected)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -14,6 +14,7 @@ func _process(delta: float) -> void:
 func update_selected(node: Selectable) -> void:
 	if node:
 		%SelectedTextureRect.texture = node.ui_texture
-		
+		%SelectedLabel.text = node.name
 	else:
 		%SelectedTextureRect.texture = EMPTY_SPRITE
+		%SelectedLabel.text = "None"

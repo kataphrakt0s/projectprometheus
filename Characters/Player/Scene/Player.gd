@@ -3,7 +3,7 @@ extends Character
 signal ui_texture_loaded(node: Selectable)
 
 @onready var pathfinder: GridPathfinder = $Pathfinder
-@onready var obstacle_tiles_layer: TileMapLayer = $"../Decor"
+@onready var obstacle_tiles_layer: TileMapLayer = GlobalRef.decor
 
 
 # Called when the node enters the scene tree for the first time.

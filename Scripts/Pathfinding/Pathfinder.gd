@@ -1,10 +1,15 @@
 extends Node2D
 class_name GridPathfinder
 
-const GRID_SIZE := 16
+const GRID_SIZE := GlobalRef.GRID_SIZE
 
 @export var grid_dimensions := Vector2i(64, 64)  # In grid cells (64x64 = 1024x1024 pixels)
 @export var default_speed := 200.0
+@export var debug_draw := true
+@export var debug_path_color := Color.GREEN
+@export var debug_path_width := 2.0
+@export var debug_current_target_color := Color.RED
+@export var debug_current_target_radius := 4.0
 
 var astar_grid := AStarGrid2D.new()
 var current_path: PackedVector2Array = []
@@ -51,6 +56,7 @@ func move_to(target_world_pos: Vector2) -> bool:
 	current_path = world_path
 	current_target_idx = 0
 	is_moving = true
+	queue_redraw()
 	return true
 
 func _process(delta):
@@ -81,3 +87,18 @@ func set_obstacles_from_tilemap(tilemaplayer: TileMapLayer):
 	for cell in used_cells:
 		var world_pos = tilemaplayer.map_to_local(cell)
 		set_obstacle(world_pos)
+
+func _draw():
+	if not debug_draw or current_path.is_empty():
+		return
+	
+	# Draw the path lines
+	for i in range(current_path.size() - 1):
+		var start = to_local(current_path[i])
+		var end = to_local(current_path[i + 1])
+		draw_line(start, end, debug_path_color, debug_path_width)
+	
+	# Draw current target indicator
+	if is_moving and current_target_idx < current_path.size():
+		var target_pos = to_local(current_path[current_target_idx])
+		draw_circle(target_pos, debug_current_target_radius, debug_current_target_color)

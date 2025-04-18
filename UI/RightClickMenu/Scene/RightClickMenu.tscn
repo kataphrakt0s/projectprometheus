@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://box33ml6a8agk"]
+
+[ext_resource type="Script" uid="uid://ciofv7mm8csv8" path="res://UI/RightClickMenu/Scripts/RightClickMenu.gd" id="1_r3mwl"]
+
+[node name="RightClickMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_r3mwl")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_right = 60.0
+offset_bottom = 31.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="MoveButton" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Move"
+
+[node name="AttackButton" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Attack"
+
+[node name="CancelButton" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/MoveButton" to="." method="_on_move_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
