@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cqlqhfwpavybn"]
+[gd_scene load_steps=9 format=3 uid="uid://cqlqhfwpavybn"]
 
 [ext_resource type="Texture2D" uid="uid://ba8suv072iqeh" path="res://Equipment/Body/Textures/BodyType1.tres" id="1_aj84o"]
 [ext_resource type="Script" uid="uid://ck4ilwh1ad1kh" path="res://Characters/Player/Scene/Player.gd" id="1_vdi7l"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://b0ibrywx7760c" path="res://Equipment/Clothing/Textures/StarterPants.tres" id="2_she87"]
 [ext_resource type="Texture2D" uid="uid://dx0lg0p8rtmcn" path="res://Equipment/Hair/Textures/DefaultHair.tres" id="3_11ham"]
 [ext_resource type="Texture2D" uid="uid://wybjn4j705fo" path="res://Equipment/Equipment/Textures/WoodenBuckler.tres" id="5_oc658"]
-[ext_resource type="Script" uid="uid://bu1f8bn3q6n0a" path="res://Scripts/Pathfinding/Pathfinder.gd" id="8_4rift"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vpjpg"]
 atlas = ExtResource("2_6mep6")
@@ -15,10 +14,6 @@ region = Rect2(714, 119, 16, 16)
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_vdi7l")
-
-[node name="Pathfinder" type="Node2D" parent="."]
-script = ExtResource("8_4rift")
-debug_draw = false
 
 [node name="CharacterSprites" type="Node2D" parent="."]
 

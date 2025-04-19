@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalRef="*res://Scripts/Autoloads/Global.gd"
+TickManager="*res://Scripts/Autoloads/TickManager.gd"
 
 [display]
 

@@ -19,12 +19,20 @@ var is_moving := false
 @onready var target_node: Node2D = get_parent()
 
 func _ready():
-	# Initialize A* grid
+	# Initialize A* grid with proper defaults
 	astar_grid.region = Rect2i(Vector2i.ZERO, grid_dimensions)
 	astar_grid.cell_size = Vector2(GRID_SIZE, GRID_SIZE)
-	astar_grid.offset = Vector2.ZERO  # Origin at (0,0)
+	astar_grid.offset = Vector2(GRID_SIZE/2, GRID_SIZE/2)  # Center alignment
 	astar_grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
+	astar_grid.jumping_enabled = false  # Important for obstacle handling
 	astar_grid.update()
+	
+	# Default all points to walkable first
+	astar_grid.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
+	astar_grid.default_estimate_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
+	
+	# Connect to tick system
+	TickManager.tick_advanced.connect(on_tick_advanced)
 
 func snap_to_grid(world_pos: Vector2) -> Vector2:
 	return Vector2(
@@ -45,6 +53,11 @@ func move_to(target_world_pos: Vector2) -> bool:
 	
 	current_path = astar_grid.get_id_path(start, end)
 	
+	# Add this debug check:
+	for point in current_path:
+		if astar_grid.is_point_solid(point):
+			print("Warning: Path goes through solid point at ", point)
+	
 	if current_path.is_empty():
 		return false
 	
@@ -59,13 +72,13 @@ func move_to(target_world_pos: Vector2) -> bool:
 	queue_redraw()
 	return true
 
-func _process(delta):
+func on_tick_advanced(_tick_count) -> void:
 	if not is_moving or current_path.is_empty():
 		return
 	
 	var target_pos = current_path[current_target_idx]
 	var direction = (target_pos - target_node.global_position).normalized()
-	var move_distance = default_speed * delta
+	var move_distance = default_speed * get_process_delta_time()
 	
 	if target_node.global_position.distance_to(target_pos) <= move_distance:
 		target_node.global_position = target_pos
@@ -75,17 +88,27 @@ func _process(delta):
 	else:
 		target_node.global_position += direction * move_distance
 
-# Set obstacles from world positions
+func _process(delta):
+	pass
+
+# Set obstacle at precise world position
 func set_obstacle(world_pos: Vector2, solid: bool = true):
-	var grid_pos = Vector2i(floor(world_pos.x / GRID_SIZE), floor(world_pos.y / GRID_SIZE))
+	var grid_pos = world_to_grid(world_pos)
 	if astar_grid.is_in_boundsv(grid_pos):
 		astar_grid.set_point_solid(grid_pos, solid)
 
-# Set obstacles from TileMap
-func set_obstacles_from_tilemap(tilemaplayer: TileMapLayer):
-	var used_cells = tilemaplayer.get_used_cells()
+# Helper function for world-to-grid conversion
+func world_to_grid(world_pos: Vector2) -> Vector2i:
+	return Vector2i(
+		floor(world_pos.x / GRID_SIZE),
+		floor(world_pos.y / GRID_SIZE)
+	)
+
+# Fixed TileMap obstacle import
+func set_obstacles_from_tilemap(tilemap: TileMapLayer):
+	var used_cells = tilemap.get_used_cells()  # Specify the layer
 	for cell in used_cells:
-		var world_pos = tilemaplayer.map_to_local(cell)
+		var world_pos = tilemap.map_to_local(cell)
 		set_obstacle(world_pos)
 
 func _draw():
@@ -102,3 +125,18 @@ func _draw():
 	if is_moving and current_target_idx < current_path.size():
 		var target_pos = to_local(current_path[current_target_idx])
 		draw_circle(target_pos, debug_current_target_radius, debug_current_target_color)
+	
+	if debug_draw:
+		# Draw obstacles
+		for x in grid_dimensions.x:
+			for y in grid_dimensions.y:
+				var grid_pos = Vector2i(x, y)
+				if astar_grid.is_point_solid(grid_pos):
+					var world_pos = grid_to_world(grid_pos)
+					var local_pos = to_local(world_pos)
+					draw_rect(Rect2(local_pos - Vector2(GRID_SIZE/2, GRID_SIZE/2), 
+						 Vector2(GRID_SIZE, GRID_SIZE)), 
+						 Color(1, 0, 0, 0.2))
+
+func grid_to_world(grid_pos: Vector2i) -> Vector2:
+	return Vector2(grid_pos) * GRID_SIZE + Vector2(GRID_SIZE/2, GRID_SIZE/2)

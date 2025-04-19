@@ -23,8 +23,6 @@ scale = Vector2(2, 2)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(8, 8)
-position_smoothing_enabled = true
-position_smoothing_speed = 16.0
 metadata/_edit_lock_ = true
 
 [node name="Detail" type="TileMapLayer" parent="."]

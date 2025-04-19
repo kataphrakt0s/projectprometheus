@@ -8,7 +8,7 @@ func _ready() -> void:
 	GlobalRef.cursor.selection_changed.connect(update_selected)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func update_selected(node: Selectable) -> void:
