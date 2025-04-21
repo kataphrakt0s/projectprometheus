@@ -31,6 +31,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			)
 			if get_child_count() == 1:
 				var right_click_menu = RIGHT_CLICK_MENU.instantiate()
+				right_click_menu.scale = Vector2(0.5, 0.5)
+				right_click_menu.position += Vector2(16, 0)
 				add_child(right_click_menu)
 				
 			move_cursor(snapped_pos)
