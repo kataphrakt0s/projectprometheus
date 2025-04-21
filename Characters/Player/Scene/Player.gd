@@ -41,7 +41,7 @@ func attempt_move(direction: Vector2) -> void:
 		is_moving = true
 		position = target_position
 		
-		# Advance game tick every time the player moves
+		# Attempt to advance game tick every time the player moves
 		EventBus.advance_tick_requested.emit()
 		
 		is_moving = false

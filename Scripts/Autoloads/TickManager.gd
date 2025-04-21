@@ -13,4 +13,3 @@ func _ready() -> void:
 func _on_advance_tick() -> void:
 	tick_count += 1
 	tick_advanced.emit(tick_count)
-	print(tick_count)
