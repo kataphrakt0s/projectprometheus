@@ -2,8 +2,10 @@ extends Character
 
 signal ui_texture_loaded(node: Selectable)
 
-@onready var obstacle_tiles_layer: TileMapLayer = GlobalRef.decor
+@onready var tile_data_layer: TileMapLayer = GlobalRef.tile_data
+
 var is_moving: bool = false
+
 
 func _ready() -> void:
 	ui_texture = await capture_canvas_item($CharacterSprites)
@@ -34,17 +36,26 @@ func attempt_move(direction: Vector2) -> void:
 	var target_position := target_cell * GlobalRef.GRID_SIZE
 	
 	# Convert target cell to tilemap coordinates for obstacle check
-	var tilemap_cell := obstacle_tiles_layer.local_to_map(target_position)
+	var tilemap_cell := tile_data_layer.local_to_map(target_position)
 	
-	# Check if target cell is walkable (empty)
-	if obstacle_tiles_layer.get_cell_source_id(tilemap_cell) == -1:  # -1 means empty cell
+	if GlobalRef.portal_references.has(tilemap_cell):
+		var portal = GlobalRef.portal_references[tilemap_cell]
+		if !portal.locked:
+			print("portal")
+			portal.activate()
+		else:
+			print("portal locked")
+			portal.unlock()
+		
+	# Check if target cell is walkable (empty or portal)
+	var cell_source_id := tile_data_layer.get_cell_source_id(tilemap_cell)
+	var is_obstacle := cell_source_id != -1
+		
+	if not is_obstacle:
 		is_moving = true
 		position = target_position
-		
-		# Attempt to advance game tick every time the player moves
-		EventBus.advance_tick_requested.emit()
-		
-		is_moving = false
+		EventBus.advance_tick_requested.emit()	
+		is_moving = false	
 
 # DEPRECATED
 #func move_to(target_position: Vector2) -> bool:

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://chdd4p80taoxk"]
+
+[ext_resource type="TileSet" uid="uid://cy8uyv4mdmub7" path="res://Spritesheets/TileSet.tres" id="1_k2erm"]
+
+[node name="TestLevelIndoor" type="Node2D"]
+
+[node name="Terrain" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_k2erm")
+
+[node name="Decor" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_k2erm")
+
+[node name="Detail" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_k2erm")

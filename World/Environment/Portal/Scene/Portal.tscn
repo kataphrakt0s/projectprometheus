@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://4881qpevt4uc"]
+
+[ext_resource type="Script" uid="uid://b1222s53xo7r3" path="res://World/Environment/Portal/Script/Portal.gd" id="1_l54vn"]
+
+[node name="Portal" type="Node2D"]
+script = ExtResource("1_l54vn")
+locked = true
+
+[node name="PortalSprite" type="Sprite2D" parent="."]
+centered = false
