@@ -3,7 +3,7 @@ class_name Cursor extends Node2D
 signal selection_changed(node: Selectable)
 
 const RIGHT_CLICK_MENU = preload("res://UI/RightClickMenu/Scene/RightClickMenu.tscn")
-const GRID_SIZE = GlobalRef.GRID_SIZE
+const GRID_SIZE = Global.GRID_SIZE
 
 var selected_node: Node2D
 

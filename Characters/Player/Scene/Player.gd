@@ -2,14 +2,13 @@ extends Character
 
 signal ui_texture_loaded(node: Selectable)
 
-@onready var tile_data_layer: TileMapLayer = GlobalRef.tile_data
-
 var is_moving: bool = false
 
 
 func _ready() -> void:
 	ui_texture = await capture_canvas_item($CharacterSprites)
 	ui_texture_loaded.emit(self)
+	LevelManager.transition_completed.connect(_on_level_ready)
 
 func _process(_delta: float) -> void:
 	if not is_moving:
@@ -28,18 +27,18 @@ func handle_movement_input() -> void:
 func attempt_move(direction: Vector2) -> void:
 	# Calculate current cell position based on top-left origin
 	var current_cell := Vector2(
-		floor(position.x / GlobalRef.GRID_SIZE),
-		floor(position.y / GlobalRef.GRID_SIZE)
+		floor(position.x / Global.GRID_SIZE),
+		floor(position.y / Global.GRID_SIZE)
 	)
 	
 	var target_cell := current_cell + direction
-	var target_position := target_cell * GlobalRef.GRID_SIZE
+	var target_position := target_cell * Global.GRID_SIZE
 	
 	# Convert target cell to tilemap coordinates for obstacle check
-	var tilemap_cell := tile_data_layer.local_to_map(target_position)
+	var tilemap_cell := Global.tile_data.local_to_map(target_position)
 	
-	if GlobalRef.portal_references.has(tilemap_cell):
-		var portal = GlobalRef.portal_references[tilemap_cell]
+	if Global.portal_references.has(tilemap_cell):
+		var portal = Global.portal_references[tilemap_cell]
 		if !portal.locked:
 			print("portal")
 			portal.activate()
@@ -48,7 +47,7 @@ func attempt_move(direction: Vector2) -> void:
 			portal.unlock()
 		
 	# Check if target cell is walkable (empty or portal)
-	var cell_source_id := tile_data_layer.get_cell_source_id(tilemap_cell)
+	var cell_source_id := Global.tile_data.get_cell_source_id(tilemap_cell)
 	var is_obstacle := cell_source_id != -1
 		
 	if not is_obstacle:
@@ -57,6 +56,11 @@ func attempt_move(direction: Vector2) -> void:
 		EventBus.advance_tick_requested.emit()	
 		is_moving = false	
 
+func _on_level_ready():
+	print("New level fully loaded and visible")
+	ui_texture = await capture_canvas_item($CharacterSprites)
+	ui_texture_loaded.emit(self)
+	
 # DEPRECATED
 #func move_to(target_position: Vector2) -> bool:
 	#if pathfinder.move_to(target_position):

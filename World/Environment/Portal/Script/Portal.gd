@@ -5,24 +5,25 @@ signal ui_texture_loaded(node: Selectable)
 @export var locked_texture: AtlasTexture
 @export var unlocked_texture: AtlasTexture
 @export var locked: bool
-@export var to_scene: PackedScene
-@export var from_scene: PackedScene
+@export var to_scene: String
 
 @onready var portal_sprite: Sprite2D = $PortalSprite
 
+var to_scene_packed: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	update_texture()
 	ui_texture = await capture_canvas_item(portal_sprite)
 	ui_texture_loaded.emit(self)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func activate() -> void:
-	pass
+	LevelManager.change_scene(to_scene)
 	
 func unlock() -> void:
 	locked = false

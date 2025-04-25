@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=4 uid="uid://c1wr1v3723vxm"]
+[gd_scene load_steps=8 format=4 uid="uid://b3bpeu6j508oa"]
 
 [ext_resource type="TileSet" uid="uid://cy8uyv4mdmub7" path="res://Spritesheets/TileSet.tres" id="1_ncof0"]
 [ext_resource type="PackedScene" uid="uid://4881qpevt4uc" path="res://World/Environment/Portal/Scene/Portal.tscn" id="3_8ja8f"]
 [ext_resource type="Texture2D" uid="uid://c6kfvc3gle0nn" path="res://World/Environment/Portal/Texture/RoundWoodenDoorL.tres" id="4_kifid"]
+[ext_resource type="PackedScene" uid="uid://cqlqhfwpavybn" path="res://Characters/Player/Scene/Player.tscn" id="5_ncof0"]
 [ext_resource type="Texture2D" uid="uid://dwp2qlt6joock" path="res://World/Environment/Portal/Texture/RoundWoodenDoorU.tres" id="5_njl70"]
+[ext_resource type="PackedScene" uid="uid://crbgx201e6w18" path="res://UI/HUD/Scene/Cursor.tscn" id="6_7g76n"]
+[ext_resource type="PackedScene" uid="uid://dwk66kro0a4c6" path="res://UI/HUD/Scene/HUDScene.tscn" id="7_8ja8f"]
 
 [node name="TestLevel" type="Node2D"]
 
@@ -22,11 +25,35 @@ tile_set = ExtResource("1_ncof0")
 
 [node name="Data" type="TileMapLayer" parent="."]
 z_index = 1
-tile_map_data = PackedByteArray("AAAnAA0AAAAlABMAAAAeAAwAAAAjABQAAAAbAAoAAAAjABQAAAAYAAwAAAAjABQAAAAjAAoAAAAjABQAAAAiAA4AAAAjABQAAAAnAAwAAAAjABQAAAAoAAwAAAAjABQAAAAoAA0AAAAjABQAAAAoAAsAAAAjABQAAAAnAAsAAAAjABQAAAAZABAAAAAjABQAAAAhABIAAAAjABQAAAA=")
+tile_map_data = PackedByteArray("AAAeAAwAAAAjABQAAAAbAAoAAAAjABQAAAAYAAwAAAAjABQAAAAjAAoAAAAjABQAAAAiAA4AAAAjABQAAAAnAAwAAAAjABQAAAAoAAwAAAAjABQAAAAoAA0AAAAjABQAAAAoAAsAAAAjABQAAAAnAAsAAAAjABQAAAAZABAAAAAjABQAAAAhABIAAAAjABQAAAAnAA0AAAAlABMAAAA=")
 tile_set = ExtResource("1_ncof0")
 
-[node name="Portal1" parent="." groups=["Portals"] instance=ExtResource("3_8ja8f")]
+[node name="Portal1" parent="." groups=["Portals", "Selectable"] instance=ExtResource("3_8ja8f")]
 z_index = 2
 position = Vector2(624, 208)
 locked_texture = ExtResource("4_kifid")
 unlocked_texture = ExtResource("5_njl70")
+to_scene = "res://World/Levels/TestLevel/Scene/TestLevel.tscn"
+
+[node name="Player" parent="." groups=["Selectable"] instance=ExtResource("5_ncof0")]
+position = Vector2(464, 272)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(8, 8)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 16.0
+metadata/_edit_lock_ = true
+
+[node name="Cursor" parent="." instance=ExtResource("6_7g76n")]
+z_index = 3
+position = Vector2(464, 272)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="HUD" parent="HUD" instance=ExtResource("7_8ja8f")]
+
+[node name="PopupUI" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+follow_viewport_enabled = true
