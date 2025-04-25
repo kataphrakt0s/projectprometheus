@@ -16,11 +16,6 @@ func _ready() -> void:
 	update_texture()
 	ui_texture = await capture_canvas_item(portal_sprite)
 	ui_texture_loaded.emit(self)
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
 
 func activate() -> void:
 	LevelManager.change_scene(to_scene)
