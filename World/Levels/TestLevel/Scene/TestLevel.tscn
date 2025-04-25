@@ -24,16 +24,17 @@ tile_map_data = PackedByteArray("AAAoAAwACAAVABcAAAAnAAwACAAUABcAAAAnAAoACAAUABU
 tile_set = ExtResource("1_ncof0")
 
 [node name="Data" type="TileMapLayer" parent="."]
+visible = false
 z_index = 1
 tile_map_data = PackedByteArray("AAAeAAwAAAAjABQAAAAbAAoAAAAjABQAAAAYAAwAAAAjABQAAAAjAAoAAAAjABQAAAAiAA4AAAAjABQAAAAnAAwAAAAjABQAAAAoAAwAAAAjABQAAAAoAA0AAAAjABQAAAAoAAsAAAAjABQAAAAnAAsAAAAjABQAAAAZABAAAAAjABQAAAAhABIAAAAjABQAAAAnAA0AAAAlABMAAAA=")
 tile_set = ExtResource("1_ncof0")
 
-[node name="Portal1" parent="." groups=["Portals", "Selectable"] instance=ExtResource("3_8ja8f")]
+[node name="Portal" parent="." groups=["Portals", "Selectable"] instance=ExtResource("3_8ja8f")]
 z_index = 2
 position = Vector2(624, 208)
 locked_texture = ExtResource("4_kifid")
 unlocked_texture = ExtResource("5_njl70")
-to_scene = "res://World/Levels/TestLevel/Scene/TestLevel.tscn"
+to_scene = "res://World/Levels/TestLevel/Scene/TestLevelIndoor.tscn"
 
 [node name="Player" parent="." groups=["Selectable"] instance=ExtResource("5_ncof0")]
 position = Vector2(464, 272)
@@ -53,6 +54,7 @@ position = Vector2(464, 272)
 unique_name_in_owner = true
 
 [node name="HUD" parent="HUD" instance=ExtResource("7_8ja8f")]
+metadata/_edit_use_anchors_ = true
 
 [node name="PopupUI" type="CanvasLayer" parent="."]
 unique_name_in_owner = true

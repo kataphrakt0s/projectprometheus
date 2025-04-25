@@ -73,6 +73,7 @@ func _switch_scenes(new_scene: PackedScene) -> void:
 	# Add new scene
 	var new_instance = new_scene.instantiate()
 	get_tree().root.add_child(new_instance)
+	Global.level_name = new_instance.name # Point to the new level node paths
 	
 	# Add back persistents
 	for node in _persistent_nodes:
