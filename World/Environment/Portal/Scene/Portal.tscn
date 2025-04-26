@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b1222s53xo7r3" path="res://World/Environment/Portal/Script/Portal.gd" id="1_l54vn"]
 
-[node name="Portal" type="Node2D"]
+[node name="Portal" type="Node2D" groups=["Portals", "Selectable"]]
 script = ExtResource("1_l54vn")
 locked = true
 

@@ -13,6 +13,8 @@ var tile_data: TileMapLayer
 var camera_2d: Camera2D
 var level_root_node: Node2D
 
+var current_selection: Selectable
+
 const GRID_SIZE = 16
 
 # Called when the node enters the scene tree for the first time.
@@ -30,6 +32,8 @@ func register_portal(portal_node: Node2D):
 func get_portals():
 	for portal in get_tree().get_nodes_in_group("Portals"):
 		register_portal(portal)
+		
+
 
 func update_level() -> void:
 	var base_path = "../" + level_name
@@ -42,3 +46,12 @@ func update_level() -> void:
 	level_root_node = get_node(base_path)
 	HUD = get_node(base_path + "/HUD")
 	get_portals()
+	cursor.selection_changed.connect(cursor_selection_update)
+
+func cursor_selection_update(selection):
+	if selection:
+		print("Current selection: " + selection.selection_name)
+		current_selection = selection
+	else:
+		print("Current selection: " + "None")
+		current_selection = null

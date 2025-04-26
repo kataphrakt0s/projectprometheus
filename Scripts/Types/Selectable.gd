@@ -1,5 +1,6 @@
 class_name Selectable extends Node2D
 
+@export var selection_name: String
 @export var ui_texture: ImageTexture
 
 # Called when the node enters the scene tree for the first time.

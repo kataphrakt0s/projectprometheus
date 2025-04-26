@@ -1,4 +1,4 @@
-extends Selectable
+class_name Portal extends Selectable
 
 signal ui_texture_loaded(node: Selectable)
 
@@ -8,8 +8,6 @@ signal ui_texture_loaded(node: Selectable)
 @export var to_scene: String
 
 @onready var portal_sprite: Sprite2D = $PortalSprite
-
-var to_scene_packed: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

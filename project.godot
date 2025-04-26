@@ -21,6 +21,7 @@ Global="*res://Scripts/Autoloads/Global.gd"
 TickManager="*res://Scripts/Autoloads/TickManager.gd"
 EventBus="*res://Scripts/Autoloads/EventBus.gd"
 LevelManager="*res://Scripts/Autoloads/LevelManager.gd"
+Inventory="*res://Scripts/Autoloads/Inventory.gd"
 
 [display]
 

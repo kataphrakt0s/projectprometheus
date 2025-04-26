@@ -44,11 +44,13 @@ func _unhandled_input(event: InputEvent) -> void:
 				floor(world_position.x / GRID_SIZE) * GRID_SIZE,  # Snap X to grid
 				floor(world_position.y / GRID_SIZE) * GRID_SIZE   # Snap Y to grid
 			)
+			# Move cursor to snapped position
+			move_cursor(snapped_pos)
+			
 			# Create right-click menu
 			create_right_click_menu()
 				
-			# Move cursor to snapped position
-			move_cursor(snapped_pos)
+			
 			# Move menu to PopupUI layer if it exists
 			if get_child(1):
 				get_child(1).reparent(%PopupUI, true)
@@ -66,6 +68,7 @@ func select_under() -> Selectable:
 # Manually select a specific node
 func select_specific(node: Node2D) -> void:
 	selected_node = node
+	selection_changed.emit(node)
 	
 # Moves cursor to target position and updates selection
 func move_cursor(target_global_pos: Vector2i) -> void:
@@ -94,6 +97,8 @@ func create_right_click_menu() -> void:
 		right_click_menu.scale = Vector2(0.5, 0.5)  # Scale down menu
 		right_click_menu.position += Vector2(16, 0)  # Offset position
 		add_child(right_click_menu)
+		right_click_menu.configure_buttons()
+		
 	# If menu exists, replace it
 	elif %PopupUI.get_child_count() == 1:
 		var child = %PopupUI.get_child(0)
@@ -102,4 +107,5 @@ func create_right_click_menu() -> void:
 		var right_click_menu = RIGHT_CLICK_MENU.instantiate()
 		right_click_menu.scale = Vector2(0.5, 0.5)
 		right_click_menu.position += Vector2(16, 0)
+		right_click_menu.configure_buttons()
 		add_child(right_click_menu)

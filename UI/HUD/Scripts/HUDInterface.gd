@@ -14,9 +14,8 @@ func _process(_delta: float) -> void:
 
 func update_selected(node: Selectable) -> void:
 	if node:
-		print("texture displaying")
 		%SelectedTextureRect.texture = node.ui_texture
-		%SelectedLabel.text = node.name
+		%SelectedLabel.text = node.selection_name
 	else:
 		%SelectedTextureRect.texture = EMPTY_SPRITE
 		%SelectedLabel.text = "None"

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Clothing1" load_steps=3 format=3 uid="uid://cnuk7gfx00uhp"]
+
+[ext_resource type="Script" uid="uid://bi5sg1sf67ard" path="res://Scripts/Types/Item/Clothing1.gd" id="1_uffmi"]
+[ext_resource type="Texture2D" uid="uid://b0ibrywx7760c" path="res://Equipment/Clothing1/StarterPants/StarterPantsTexture.tres" id="2_nstqe"]
+
+[resource]
+script = ExtResource("1_uffmi")
+name = "Hempen Trousers"
+texture = ExtResource("2_nstqe")
+durability = 1.0
+max_durability = 1.0
+metadata/_custom_type_script = "uid://bi5sg1sf67ard"

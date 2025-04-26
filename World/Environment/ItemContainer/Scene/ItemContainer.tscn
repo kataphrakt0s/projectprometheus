@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://1rm7uvef6kl4"]
+
+[ext_resource type="Script" uid="uid://dtla4tusplali" path="res://World/Environment/ItemContainer/Script/ItemContainer.gd" id="1_tbgcy"]
+[ext_resource type="Texture2D" uid="uid://bq8nawr0lxg4h" path="res://World/Environment/ItemContainer/Textures/WoodenBox/WoodenBoxL.tres" id="2_u2fb6"]
+[ext_resource type="Texture2D" uid="uid://dwggaga5820tf" path="res://World/Environment/ItemContainer/Textures/WoodenBox/WoodenBoxU.tres" id="3_1or7v"]
+
+[node name="ItemContainer" type="Node2D" groups=["Containers", "Selectable"]]
+script = ExtResource("1_tbgcy")
+locked_texture = ExtResource("2_u2fb6")
+unlocked_texture = ExtResource("3_1or7v")
+locked = true
+
+[node name="ItemContainerSprite" type="Sprite2D" parent="."]
+centered = false

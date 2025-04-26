@@ -1,12 +1,18 @@
-[gd_scene load_steps=8 format=4 uid="uid://b3bpeu6j508oa"]
+[gd_scene load_steps=14 format=4 uid="uid://b3bpeu6j508oa"]
 
 [ext_resource type="TileSet" uid="uid://cy8uyv4mdmub7" path="res://Spritesheets/TileSet.tres" id="1_ncof0"]
 [ext_resource type="PackedScene" uid="uid://4881qpevt4uc" path="res://World/Environment/Portal/Scene/Portal.tscn" id="3_8ja8f"]
-[ext_resource type="Texture2D" uid="uid://c6kfvc3gle0nn" path="res://World/Environment/Portal/Texture/RoundWoodenDoorL.tres" id="4_kifid"]
+[ext_resource type="Texture2D" uid="uid://c6kfvc3gle0nn" path="res://World/Environment/Portal/Textures/RoundWoodenDoor/RoundWoodenDoorL.tres" id="4_kifid"]
+[ext_resource type="PackedScene" uid="uid://1rm7uvef6kl4" path="res://World/Environment/ItemContainer/Scene/ItemContainer.tscn" id="5_7g76n"]
 [ext_resource type="PackedScene" uid="uid://cqlqhfwpavybn" path="res://Characters/Player/Scene/Player.tscn" id="5_ncof0"]
-[ext_resource type="Texture2D" uid="uid://dwp2qlt6joock" path="res://World/Environment/Portal/Texture/RoundWoodenDoorU.tres" id="5_njl70"]
+[ext_resource type="Texture2D" uid="uid://dwp2qlt6joock" path="res://World/Environment/Portal/Textures/RoundWoodenDoor/RoundWoodenDoorU.tres" id="5_njl70"]
 [ext_resource type="PackedScene" uid="uid://crbgx201e6w18" path="res://UI/HUD/Scene/Cursor.tscn" id="6_7g76n"]
+[ext_resource type="Script" uid="uid://22bhyvxo5owk" path="res://Scripts/Types/Item.gd" id="6_njl70"]
 [ext_resource type="PackedScene" uid="uid://dwk66kro0a4c6" path="res://UI/HUD/Scene/HUDScene.tscn" id="7_8ja8f"]
+[ext_resource type="Resource" uid="uid://cnuk7gfx00uhp" path="res://Equipment/Clothing1/StarterPants/StarterPants.tres" id="7_obd50"]
+[ext_resource type="Resource" uid="uid://jbn74iwqvm6v" path="res://Equipment/Clothing2/StarterTunic/StarterTunic.tres" id="8_lyutu"]
+[ext_resource type="Resource" uid="uid://n3157kkvo0n4" path="res://Equipment/Equip1/WoodenSword/WoodenSword.tres" id="9_lyutu"]
+[ext_resource type="Resource" uid="uid://cqy4bt0b8ja5w" path="res://Equipment/Equip2/WoodenBuckler/WoodenBuckler.tres" id="10_fghx6"]
 
 [node name="TestLevel" type="Node2D"]
 
@@ -24,16 +30,24 @@ tile_map_data = PackedByteArray("AAAoAAwACAAVABcAAAAnAAwACAAUABcAAAAnAAoACAAUABU
 tile_set = ExtResource("1_ncof0")
 
 [node name="Data" type="TileMapLayer" parent="."]
+visible = false
 z_index = 1
-tile_map_data = PackedByteArray("AAAeAAwAAAAjABQAAAAbAAoAAAAjABQAAAAYAAwAAAAjABQAAAAjAAoAAAAjABQAAAAiAA4AAAAjABQAAAAnAAwAAAAjABQAAAAoAAwAAAAjABQAAAAoAA0AAAAjABQAAAAoAAsAAAAjABQAAAAnAAsAAAAjABQAAAAZABAAAAAjABQAAAAhABIAAAAjABQAAAAnAA0AAAAlABMAAAA=")
+tile_map_data = PackedByteArray("AAAeAAwAAAAjABQAAAAbAAoAAAAjABQAAAAYAAwAAAAjABQAAAAjAAoAAAAjABQAAAAiAA4AAAAjABQAAAAnAAwAAAAjABQAAAAoAAwAAAAjABQAAAAoAA0AAAAjABQAAAAoAAsAAAAjABQAAAAnAAsAAAAjABQAAAAZABAAAAAjABQAAAAhABIAAAAjABQAAAAnAA0AAAAlABMAAAAfABAAAAAlABIAAAA=")
 tile_set = ExtResource("1_ncof0")
 
-[node name="Portal" parent="." groups=["Portals", "Selectable"] instance=ExtResource("3_8ja8f")]
+[node name="Portal1" parent="." instance=ExtResource("3_8ja8f")]
 z_index = 2
 position = Vector2(624, 208)
 locked_texture = ExtResource("4_kifid")
 unlocked_texture = ExtResource("5_njl70")
 to_scene = "res://World/Levels/TestLevel/Scene/TestLevelIndoor.tscn"
+selection_name = "Door"
+
+[node name="Container1" parent="." instance=ExtResource("5_7g76n")]
+z_index = 2
+position = Vector2(496, 256)
+contents = Array[ExtResource("6_njl70")]([ExtResource("7_obd50"), ExtResource("8_lyutu"), ExtResource("9_lyutu"), ExtResource("10_fghx6")])
+selection_name = "Wooden Box"
 
 [node name="Player" parent="." groups=["Selectable"] instance=ExtResource("5_ncof0")]
 position = Vector2(464, 272)

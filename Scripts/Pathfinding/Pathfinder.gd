@@ -1,7 +1,7 @@
 extends Node2D
 class_name GridPathfinder
 
-const GRID_SIZE := GlobalRef.GRID_SIZE
+const GRID_SIZE := Global.GRID_SIZE
 
 @export var grid_dimensions := Vector2i(64, 64)  # In grid cells (64x64 = 1024x1024 pixels)
 @export var default_speed := 200.0
@@ -21,8 +21,8 @@ var is_moving := false
 func _ready():
 	# Initialize A* grid with proper defaults
 	astar_grid.region = Rect2i(Vector2i.ZERO, grid_dimensions)
-	astar_grid.cell_size = Vector2(GRID_SIZE, GRID_SIZE)
-	astar_grid.offset = Vector2(GRID_SIZE/2, GRID_SIZE/2)  # Center alignment
+	astar_grid.cell_size = Vector2(Global.GRID_SIZE, Global.GRID_SIZE)
+	astar_grid.offset = Vector2(Global.GRID_SIZE/2, Global.GRID_SIZE/2)  # Center alignment
 	astar_grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	astar_grid.jumping_enabled = false  # Important for obstacle handling
 	astar_grid.update()

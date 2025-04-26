@@ -17,7 +17,7 @@ func _ready() -> void:
 	
 	# Connect to level manager's transition complete signal
 	LevelManager.transition_completed.connect(_on_level_ready)
-
+	
 # Process loop - handles movement input when not already moving
 func _process(_delta: float) -> void:
 	if not is_moving:
@@ -54,11 +54,11 @@ func attempt_move(direction: Vector2) -> void:
 	if Global.portal_references.has(tilemap_cell):
 		var portal = Global.portal_references[tilemap_cell]
 		if !portal.locked:
-			print("portal")
 			portal.activate()
 		else:
-			print("portal locked")
 			portal.unlock()
+			
+	
 		
 	# Check if target cell is walkable (empty or portal)
 	var cell_source_id := Global.tile_data.get_cell_source_id(tilemap_cell)
@@ -74,6 +74,29 @@ func attempt_move(direction: Vector2) -> void:
 # Callback when a new level has finished loading
 func _on_level_ready():
 	# Re-capture character sprites for UI (in case of level changes)
+	ui_texture = await capture_canvas_item($CharacterSprites)
+	
+	# Notify that the UI texture has been updated
+	ui_texture_loaded.emit(self)
+
+# Update the character sprite with the correct equipment textures
+func update_displayed_equipment() -> void:
+	%Clothing1Sprite.texture = \
+	Inventory.equipped.get(Inventory.EquipSlot.CLOTHING1).texture
+	
+	%Clothing2Sprite.texture = \
+	Inventory.equipped.get(Inventory.EquipSlot.CLOTHING2).texture
+	
+	%Equipment1Sprite.texture = \
+	Inventory.equipped.get(Inventory.EquipSlot.EQUIP1).texture
+	
+	%Equipment2Sprite.texture = \
+	Inventory.equipped.get(Inventory.EquipSlot.EQUIP2).texture
+	
+	%HelmetSprite.texture = \
+	Inventory.equipped.get(Inventory.EquipSlot.HELMET).texture
+	
+	# Re-capture character sprites for UI (in case of equipment changes)
 	ui_texture = await capture_canvas_item($CharacterSprites)
 	
 	# Notify that the UI texture has been updated

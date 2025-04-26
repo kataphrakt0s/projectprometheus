@@ -20,6 +20,10 @@ visible = false
 layout_mode = 2
 text = "Move"
 
+[node name="OpenButton" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Open"
+
 [node name="AttackButton" type="Button" parent="PanelContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
@@ -31,4 +35,6 @@ text = "Cancel"
 
 [connection signal="mouse_exited" from="PanelContainer/VBoxContainer" to="." method="_on_v_box_container_mouse_exited"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MoveButton" to="." method="_on_move_button_pressed" flags=3]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/OpenButton" to="." method="_on_open_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/AttackButton" to="." method="_on_attack_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

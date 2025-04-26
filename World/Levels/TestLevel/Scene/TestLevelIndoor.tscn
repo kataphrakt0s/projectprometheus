@@ -2,8 +2,8 @@
 
 [ext_resource type="TileSet" uid="uid://cy8uyv4mdmub7" path="res://Spritesheets/TileSet.tres" id="1_k2erm"]
 [ext_resource type="PackedScene" uid="uid://4881qpevt4uc" path="res://World/Environment/Portal/Scene/Portal.tscn" id="2_yqpss"]
-[ext_resource type="Texture2D" uid="uid://c6kfvc3gle0nn" path="res://World/Environment/Portal/Texture/RoundWoodenDoorL.tres" id="3_141ou"]
-[ext_resource type="Texture2D" uid="uid://dwp2qlt6joock" path="res://World/Environment/Portal/Texture/RoundWoodenDoorU.tres" id="4_yovkw"]
+[ext_resource type="Texture2D" uid="uid://c6kfvc3gle0nn" path="res://World/Environment/Portal/Textures/RoundWoodenDoor/RoundWoodenDoorL.tres" id="3_141ou"]
+[ext_resource type="Texture2D" uid="uid://dwp2qlt6joock" path="res://World/Environment/Portal/Textures/RoundWoodenDoor/RoundWoodenDoorU.tres" id="4_yovkw"]
 [ext_resource type="PackedScene" uid="uid://cqlqhfwpavybn" path="res://Characters/Player/Scene/Player.tscn" id="5_c0cs3"]
 [ext_resource type="PackedScene" uid="uid://crbgx201e6w18" path="res://UI/HUD/Scene/Cursor.tscn" id="6_yboc3"]
 [ext_resource type="PackedScene" uid="uid://dwk66kro0a4c6" path="res://UI/HUD/Scene/HUDScene.tscn" id="7_rrnpg"]
@@ -24,16 +24,18 @@ tile_map_data = PackedByteArray("AAADAP7/CAAoAAAAAAAGAP7/CAAoAAAAAAA=")
 tile_set = ExtResource("1_k2erm")
 
 [node name="Data" type="TileMapLayer" parent="."]
+visible = false
 z_index = 1
 tile_map_data = PackedByteArray("AAD//wAAAAAjABQAAAD//wEAAAAjABQAAAD//wIAAAAjABQAAAD//wMAAAAjABQAAAD//wQAAAAjABQAAAD//wUAAAAjABQAAAD//wYAAAAjABQAAAD//wcAAAAjABQAAAD//wgAAAAjABQAAAD//wkAAAAjABQAAAAAAAkAAAAjABQAAAABAAkAAAAjABQAAAACAAkAAAAjABQAAAADAAkAAAAjABQAAAAEAAkAAAAjABQAAAAGAAkAAAAjABQAAAAHAAkAAAAjABQAAAAIAAkAAAAjABQAAAAJAAkAAAAjABQAAAAKAAkAAAAjABQAAAAKAAgAAAAjABQAAAAKAAcAAAAjABQAAAAKAAYAAAAjABQAAAAKAAUAAAAjABQAAAAKAAQAAAAjABQAAAAKAAMAAAAjABQAAAAKAAIAAAAjABQAAAAKAAEAAAAjABQAAAAKAAAAAAAjABQAAAAKAP//AAAjABQAAAAJAP//AAAjABQAAAAIAP//AAAjABQAAAAHAP//AAAjABQAAAAGAP//AAAjABQAAAAFAP//AAAjABQAAAAEAP//AAAjABQAAAADAP//AAAjABQAAAACAP//AAAjABQAAAABAP//AAAjABQAAAAAAP//AAAjABQAAAD/////AAAjABQAAAAFAAkAAAAlABMAAAADAAMAAAAjABQAAAADAAQAAAAjABQAAAAEAAQAAAAjABQAAAAEAAUAAAAjABQAAAA=")
 tile_set = ExtResource("1_k2erm")
 
-[node name="Portal" parent="." groups=["Portals", "Selectable"] instance=ExtResource("2_yqpss")]
+[node name="Portal" parent="." instance=ExtResource("2_yqpss")]
 z_index = 2
 position = Vector2(80, 144)
 locked_texture = ExtResource("3_141ou")
 unlocked_texture = ExtResource("4_yovkw")
 to_scene = "res://World/Levels/TestLevel/Scene/TestLevel.tscn"
+selection_name = "Door"
 
 [node name="Player" parent="." groups=["Selectable"] instance=ExtResource("5_c0cs3")]
 position = Vector2(80, 128)
