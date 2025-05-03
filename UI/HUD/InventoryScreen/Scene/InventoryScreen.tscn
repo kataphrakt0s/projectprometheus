@@ -1,0 +1,471 @@
+[gd_scene load_steps=5 format=3 uid="uid://x27anuuhjbb0"]
+
+[ext_resource type="Script" uid="uid://ct800tneowg7y" path="res://UI/HUD/InventoryScreen/Script/InventoryScreen.gd" id="1_tv6uq"]
+[ext_resource type="Script" uid="uid://b4cdb2k7tk0n3" path="res://UI/HUD/InventoryScreen/Script/UIEquipmentSlot.gd" id="2_7lxsr"]
+[ext_resource type="Texture2D" uid="uid://r1cg6lmctlrw" path="res://UI/HUD/Textures/EmptySprite.tres" id="2_vmkbb"]
+[ext_resource type="Script" uid="uid://dt8x4ojkfft0l" path="res://UI/HUD/InventoryScreen/Script/UIInventorySlot.gd" id="4_m2em0"]
+
+[node name="InventoryScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tv6uq")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 120
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="EquipmentGrid" type="GridContainer" parent="CenterContainer/HBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid"]
+layout_mode = 2
+script = ExtResource("2_7lxsr")
+equip_slot = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer"]
+layout_mode = 2
+
+[node name="EquipRect" type="TextureRect" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_vmkbb")
+stretch_mode = 5
+
+[node name="AmuletLabel" type="Label" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Amulet"
+horizontal_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid"]
+layout_mode = 2
+script = ExtResource("2_7lxsr")
+equip_slot = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer2"]
+layout_mode = 2
+
+[node name="EquipRect" type="TextureRect" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_vmkbb")
+stretch_mode = 5
+
+[node name="HelmetLabel" type="Label" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Helmet"
+horizontal_alignment = 1
+
+[node name="PanelContainer3" type="PanelContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid"]
+layout_mode = 2
+script = ExtResource("2_7lxsr")
+equip_slot = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer3"]
+layout_mode = 2
+
+[node name="EquipRect" type="TextureRect" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_vmkbb")
+stretch_mode = 5
+
+[node name="RelicLabel" type="Label" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer3/VBoxContainer"]
+layout_mode = 2
+text = "Relic"
+horizontal_alignment = 1
+
+[node name="PanelContainer4" type="PanelContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid"]
+layout_mode = 2
+script = ExtResource("2_7lxsr")
+equip_slot = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer4"]
+layout_mode = 2
+
+[node name="EquipRect" type="TextureRect" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer4/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_vmkbb")
+stretch_mode = 5
+
+[node name="WeaponLabel" type="Label" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer4/VBoxContainer"]
+layout_mode = 2
+text = "Weapon"
+horizontal_alignment = 1
+
+[node name="PanelContainer5" type="PanelContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid"]
+layout_mode = 2
+script = ExtResource("2_7lxsr")
+equip_slot = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer5"]
+layout_mode = 2
+
+[node name="EquipRect" type="TextureRect" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer5/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_vmkbb")
+stretch_mode = 5
+
+[node name="ArmourLabel" type="Label" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer5/VBoxContainer"]
+layout_mode = 2
+text = "Armour"
+horizontal_alignment = 1
+
+[node name="PanelContainer6" type="PanelContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid"]
+layout_mode = 2
+script = ExtResource("2_7lxsr")
+equip_slot = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer6"]
+layout_mode = 2
+
+[node name="EquipRect" type="TextureRect" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer6/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_vmkbb")
+stretch_mode = 5
+
+[node name="OffHandLabel" type="Label" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer6/VBoxContainer"]
+layout_mode = 2
+text = "OffHand"
+horizontal_alignment = 1
+
+[node name="PanelContainer7" type="PanelContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid"]
+layout_mode = 2
+script = ExtResource("2_7lxsr")
+equip_slot = 7
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer7"]
+layout_mode = 2
+
+[node name="EquipRect" type="TextureRect" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer7/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_vmkbb")
+stretch_mode = 5
+
+[node name="RingLabel" type="Label" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer7/VBoxContainer"]
+layout_mode = 2
+text = "Ring"
+horizontal_alignment = 1
+
+[node name="PanelContainer8" type="PanelContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid"]
+layout_mode = 2
+script = ExtResource("2_7lxsr")
+equip_slot = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer8"]
+layout_mode = 2
+
+[node name="EquipRect" type="TextureRect" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer8/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_vmkbb")
+stretch_mode = 5
+
+[node name="BootsLabel" type="Label" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer8/VBoxContainer"]
+layout_mode = 2
+text = "Boots"
+horizontal_alignment = 1
+
+[node name="PanelContainer9" type="PanelContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid"]
+layout_mode = 2
+script = ExtResource("2_7lxsr")
+equip_slot = 9
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer9"]
+layout_mode = 2
+
+[node name="EquipRect" type="TextureRect" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer9/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_vmkbb")
+stretch_mode = 5
+
+[node name="GlovesLabel" type="Label" parent="CenterContainer/HBoxContainer/PanelContainer/EquipmentGrid/PanelContainer9/VBoxContainer"]
+layout_mode = 2
+text = "Gloves"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="InventoryPanel" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="InventoryGrid" type="GridContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 6
+
+[node name="InventorySlot1" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 1
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot1"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot2" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot2"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot3" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 3
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot3"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot4" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 4
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot4"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot5" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 5
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot5"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot6" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 6
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot6"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot7" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 7
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot7"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot8" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 8
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot8"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot9" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 9
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot9"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot10" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 10
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot10"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot11" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 11
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot11"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot12" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 12
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot12"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot13" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 13
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot13"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot14" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 14
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot14"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot15" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 15
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot15"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot16" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 16
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot16"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot17" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 17
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot17"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot18" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 18
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot18"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot19" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 19
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot19"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot20" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 20
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot20"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot21" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 21
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot21"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot22" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 22
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot22"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot23" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 23
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot23"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="InventorySlot24" type="PanelContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid"]
+layout_mode = 2
+script = ExtResource("4_m2em0")
+inventory_slot_index = 24
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer/InventoryPanel/InventoryGrid/InventorySlot24"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Close"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

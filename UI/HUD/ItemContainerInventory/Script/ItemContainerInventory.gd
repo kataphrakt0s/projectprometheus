@@ -7,10 +7,13 @@ func _ready() -> void:
 	
 
 func _on_take_all_button_pressed() -> void:
-	for item in Global.current_selection.contents:
-			print("Added item to inventory: " + item.name)
-			Inventory.contents.append(item as Object)
-	Global.current_selection.contents.clear()
+	if Global.current_selection.contents.size() > 0:
+		for item in Global.current_selection.contents:
+				print("Added item to inventory: " + item.name)
+				Inventory.contents.append(item as Object)
+		Global.current_selection.contents.clear()
+	else:
+		print("No items left!")
 	populate_grid()
 
 

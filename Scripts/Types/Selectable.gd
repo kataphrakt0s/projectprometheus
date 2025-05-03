@@ -15,7 +15,7 @@ func _process(_delta: float) -> void:
 func capture_canvas_item(canvas_item: CanvasItem) -> ImageTexture:
 	# Create temporary viewport
 	var viewport = SubViewport.new()
-	viewport.size = Vector2i(16,16)
+	viewport.size = Vector2i(32,32)
 	viewport.transparent_bg = true
 	
 	# Create duplicate of the node tree

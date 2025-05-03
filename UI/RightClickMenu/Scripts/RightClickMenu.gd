@@ -3,7 +3,7 @@ extends Control
 const ItemContainerInventory: PackedScene = preload("res://UI/HUD/ItemContainerInventory/Scene/ItemContainerInventory.tscn")
 
 func _on_move_button_pressed() -> void:
-	queue_free()
+	hide()
 	# DEPRECATED
 	#if GlobalRef.player.move_to(GlobalRef.cursor.global_position):
 		#print("Moving")
@@ -20,8 +20,8 @@ func _on_open_button_pressed() -> void:
 		if Global.current_selection.contents.size() == 0:
 			print("No items in container!")
 		else:
-			Global.HUD.add_child(ItemContainerInventory.instantiate())
-	queue_free()
+			$"../../HUD".add_child(ItemContainerInventory.instantiate())
+	hide()
 
 
 func _on_attack_button_pressed() -> void:
@@ -29,7 +29,7 @@ func _on_attack_button_pressed() -> void:
 
 
 func _on_cancel_button_pressed() -> void:
-	queue_free()
+	hide()
 
 func configure_buttons() -> void:
 	if Global.current_selection:

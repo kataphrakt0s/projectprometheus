@@ -1,7 +1,7 @@
 [gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://r1cg6lmctlrw"]
 
-[ext_resource type="Texture2D" uid="uid://bspn0px3n6q1l" path="res://Spritesheets/roguelikeChar_transparent.png" id="1_i48v2"]
+[ext_resource type="Texture2D" uid="uid://dy3xddjfl4i0u" path="res://Spritesheets/tiles.png" id="1_i48v2"]
 
 [resource]
 atlas = ExtResource("1_i48v2")
-region = Rect2(34, 0, 16, 16)
+region = Rect2(0, 256, 32, 32)

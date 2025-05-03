@@ -25,11 +25,11 @@ func open() -> void:
 
 func unlock() -> void:
 	locked = false
-	item_container_sprite.texture = unlocked_texture
+	update_texture()
 	
 func lock() -> void:
 	locked = true
-	item_container_sprite.texture = locked_texture
+	update_texture()
 
 func update_texture() -> void:
 	if locked:

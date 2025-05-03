@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://ub72pdw4l42k"]
+
+[ext_resource type="PackedScene" uid="uid://b3bpeu6j508oa" path="res://World/Levels/TestLevel/Scene/TestLevel.tscn" id="1_td1ac"]
+[ext_resource type="PackedScene" uid="uid://cqlqhfwpavybn" path="res://Characters/Player/Scene/Player.tscn" id="9_gv74a"]
+[ext_resource type="PackedScene" uid="uid://crbgx201e6w18" path="res://UI/HUD/Scene/Cursor.tscn" id="10_mklwt"]
+[ext_resource type="PackedScene" uid="uid://dwk66kro0a4c6" path="res://UI/HUD/Scene/HUDScene.tscn" id="11_wsblj"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Level" parent="." instance=ExtResource("1_td1ac")]
+
+[node name="Player" parent="." groups=["Selectable"] instance=ExtResource("9_gv74a")]
+position = Vector2(224, 128)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(8, 8)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 16.0
+metadata/_edit_lock_ = true
+
+[node name="Cursor" parent="." instance=ExtResource("10_mklwt")]
+z_index = 3
+position = Vector2(224, 128)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="HUD" parent="HUD" instance=ExtResource("11_wsblj")]
+metadata/_edit_use_anchors_ = true
+
+[node name="PopupUI" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+follow_viewport_enabled = true

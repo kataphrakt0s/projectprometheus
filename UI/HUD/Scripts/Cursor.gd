@@ -49,7 +49,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 			# Create right-click menu
 			create_right_click_menu()
-				
 			
 			# Move menu to PopupUI layer if it exists
 			if get_child(1):

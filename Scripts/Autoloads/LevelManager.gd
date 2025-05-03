@@ -6,97 +6,127 @@ signal transition_completed
 
 const TRANSITION_DURATION := 0.5
 
-var _current_scene: Node
-var _persistent_nodes := []
+var _current_level: Node
+var current_level_data: LevelData
 var _loading_screen: Control
-var _current_load_path: String
-var _is_ready := false
 var loading_screen_scene: PackedScene = preload("res://UI/LoadingScreen/Scene/LoadingScreen.tscn")
+var tile_data: TileMapLayer
+var portal_references: Dictionary[Vector2i, Node]
 
 func _ready() -> void:
 	# Use call_deferred to safely add children during ready phase
-	call_deferred("_deferred_ready")
-	_current_scene = get_tree().current_scene
-	_is_ready = true
+	_current_level = get_node("../Game/Level")
+	tile_data = _current_level.get_node("Data")
+	get_portals()
 
-func _deferred_ready() -> void:
-	_loading_screen = loading_screen_scene.instantiate()
-	add_child(_loading_screen)
-	_loading_screen.hide()
-	get_tree().root.child_entered_tree.connect(_on_scene_loaded)
-
-func change_scene(scene_path: String, persistent_nodes: Array = []) -> void:
-	if not _is_ready:
-		await ready
+func change_level(new_scene_path: String) -> void:
+	# Get reference to the Game node parent
+	var game_node = get_node("../Game")
+	if not game_node:
+		push_error("Game node not found!")
+		return
 	
-	transition_started.emit(scene_path)
-	_persistent_nodes = persistent_nodes
-	_current_load_path = scene_path
+	# Get the current Level node
+	var current_level = game_node.get_node("Level")
+	if not current_level:
+		push_error("Level node not found!")
+		return
+	
+	# Emit transition started signal
+	transition_started.emit(new_scene_path)
 	
 	# Show loading screen
-	_loading_screen.show()
+	_show_loading_screen()
+	
+	# Load the new scene asynchronously
+	var new_scene = load(new_scene_path) as PackedScene
+	if not new_scene:
+		push_error("Failed to load scene: ", new_scene_path)
+		_hide_loading_screen()
+		return
+	
+	# Create transition effect
 	var tween = create_tween()
 	tween.tween_property(_loading_screen, "modulate:a", 1.0, TRANSITION_DURATION/2)
 	await tween.finished
 	
-	# Start loading process
-	ResourceLoader.load_threaded_request(scene_path)
+	# Remove old level and its children
+	current_level.queue_free()
+	await current_level.tree_exited
 	
-	# Progress polling
-	while true:
-		var status = ResourceLoader.load_threaded_get_status(scene_path)
-		match status:
-			ResourceLoader.THREAD_LOAD_LOADED:
-				break
-			ResourceLoader.THREAD_LOAD_FAILED, ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
-				push_error("Failed to load scene: ", scene_path)
-				_loading_screen.hide()
-				return
-				
-		# Simple progress simulation (replace with actual progress tracking if available)
-		await get_tree().process_frame
+	# Instantiate and add new level
+	var new_level = new_scene.instantiate()
+	game_node.add_child(new_level)
+	game_node.move_child(new_level, game_node.get_children().find(current_level))
 	
-	# Complete the transition
-	var new_scene = ResourceLoader.load_threaded_get(scene_path)
-	await _switch_scenes(new_scene)
-
-func _switch_scenes(new_scene: PackedScene) -> void:
-	# Remove old scene but keep persistents
-	for node in _persistent_nodes:
-		if is_instance_valid(node) and node.is_inside_tree():
-			_current_scene.remove_child(node)
+	# Update references
+	_current_level = new_level
+	tile_data = new_level.get_node("Data") as TileMapLayer
+	if not tile_data:
+		push_warning("New level missing TileMapLayer 'Data'")
 	
-	# Free old scene
-	_current_scene.queue_free()
-	await _current_scene.tree_exited
+	# Rebuild portal references
+	portal_references.clear()
+	get_portals()
 	
-	# Add new scene
-	var new_instance = new_scene.instantiate()
-	get_tree().root.add_child(new_instance)
-	Global.level_name = new_instance.name # Point to the new level node paths
+	# Position player south of matching portal if found
+	_position_player_at_exit(new_scene_path)
 	
-	# Add back persistents
-	for node in _persistent_nodes:
-		if is_instance_valid(node):
-			new_instance.add_child(node)
-	
-	_current_scene = new_instance
-	get_tree().current_scene = _current_scene
-	
-	level_loaded.emit(_current_scene)
-	
-	# Hide loading screen
-	var tween = create_tween()
+	# Complete transition
+	level_loaded.emit(new_level)
+	tween = create_tween()
 	tween.tween_property(_loading_screen, "modulate:a", 0.0, TRANSITION_DURATION/2)
 	await tween.finished
-	_loading_screen.hide()
+	_hide_loading_screen()
 	
 	transition_completed.emit()
 
-func _on_scene_loaded(node: Node) -> void:
-	if node != _loading_screen and node != _current_scene:
-		call_deferred("_deferred_move_child", node)
+func _show_loading_screen():
+	if not _loading_screen:
+		_loading_screen = loading_screen_scene.instantiate()
+		get_tree().root.add_child(_loading_screen)
+	_loading_screen.show()
 
-func _deferred_move_child(node: Node) -> void:
-	if is_instance_valid(node) and node.is_inside_tree():
-		get_tree().root.move_child(node, 0)
+func _hide_loading_screen():
+	if _loading_screen:
+		_loading_screen.hide()
+
+func register_portal(portal_node: Node2D):
+	portal_references = {}
+	var map_position = tile_data.local_to_map(portal_node.position)
+	portal_references[map_position] = portal_node
+#
+func get_portals():
+	for portal in get_tree().get_nodes_in_group("Portals"):
+		register_portal(portal)
+
+func _position_player_at_exit(entered_scene_path: String):
+	var game_node = get_node("../Game")
+	var player = game_node.get_node("Player")
+	if not player:
+		push_error("Player node not found!")
+		return
+	var cursor = game_node.get_node("Cursor")
+	if not cursor:
+		push_error("Cursor node not found!")
+		return
+	
+	# Find portal that matches the entered scene path
+	for portal_pos in portal_references:
+		var portal = portal_references[portal_pos]
+		print(portal.to_level)
+		print(entered_scene_path)
+		if portal.from_level == entered_scene_path:
+			print("target found")
+			# Calculate position one tile south (adjust GRID_SIZE as needed)
+			var exit_pos = portal_pos + Vector2i(0, 1)
+			var world_pos = tile_data.map_to_local(exit_pos)
+			player.global_position = world_pos - Vector2(16,16)
+			cursor.global_position = world_pos - Vector2(16,16)
+			return
+
+#func get_containers() -> Array[ItemContainer]:
+	#var containers: Array[ItemContainer] = []
+	#for container in get_tree().get_nodes_in_group("Containers"):
+		#containers.append(container)
+	#return containers

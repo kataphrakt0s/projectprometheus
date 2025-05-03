@@ -6,6 +6,13 @@ signal ui_texture_loaded(node: Selectable)
 
 # Movement state flag - prevents overlapping movements
 var is_moving: bool = false
+var facing_right: bool = false:
+	set(value):
+		if value == true:
+			%CharacterSprite.flip_h = true
+		else:
+			%CharacterSprite.flip_h = false
+		facing_right = value
 
 
 func _ready() -> void:
@@ -15,6 +22,8 @@ func _ready() -> void:
 	# Notify listeners that the UI texture is ready
 	ui_texture_loaded.emit(self)
 	
+	LevelManager.transition_started.connect(_level_transition_started)
+	
 	# Connect to level manager's transition complete signal
 	LevelManager.transition_completed.connect(_on_level_ready)
 	
@@ -22,14 +31,20 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if not is_moving:
 		handle_movement_input()
+	
+	if Input.is_action_just_pressed("open_inventory"):
+		var inventory_screen = %HUD.get_node("HUD/InventoryScreen")
+		inventory_screen.visible = !inventory_screen.visible
 
 # Handles keyboard input for character movement
 func handle_movement_input() -> void:
 	# Check each movement direction for key presses
 	if Input.is_action_just_pressed("move_right"):
 		attempt_move(Vector2.RIGHT)
+		facing_right = true
 	elif Input.is_action_just_pressed("move_left"):
 		attempt_move(Vector2.LEFT)
+		facing_right = false
 	elif Input.is_action_just_pressed("move_down"):
 		attempt_move(Vector2.DOWN)
 	elif Input.is_action_just_pressed("move_up"):
@@ -48,11 +63,11 @@ func attempt_move(direction: Vector2) -> void:
 	var target_position := target_cell * Global.GRID_SIZE
 	
 	# Convert target cell to tilemap coordinates for obstacle check
-	var tilemap_cell := Global.tile_data.local_to_map(target_position)
+	var tilemap_cell := LevelManager.tile_data.local_to_map(target_position)
 	
 	# Check for portal at target position
-	if Global.portal_references.has(tilemap_cell):
-		var portal = Global.portal_references[tilemap_cell]
+	if LevelManager.portal_references.has(tilemap_cell):
+		var portal = LevelManager.portal_references[tilemap_cell]
 		if !portal.locked:
 			portal.activate()
 		else:
@@ -61,7 +76,7 @@ func attempt_move(direction: Vector2) -> void:
 	
 		
 	# Check if target cell is walkable (empty or portal)
-	var cell_source_id := Global.tile_data.get_cell_source_id(tilemap_cell)
+	var cell_source_id := LevelManager.tile_data.get_cell_source_id(tilemap_cell)
 	var is_obstacle := cell_source_id != -1 # -1 indicates empty cell
 	
 	# If no obstacle, move to target position
@@ -69,38 +84,20 @@ func attempt_move(direction: Vector2) -> void:
 		is_moving = true
 		position = target_position
 		EventBus.advance_tick_requested.emit()	
-		is_moving = false	
+		is_moving = false
 		
 # Callback when a new level has finished loading
 func _on_level_ready():
+	is_moving = false
+	
 	# Re-capture character sprites for UI (in case of level changes)
 	ui_texture = await capture_canvas_item($CharacterSprites)
 	
 	# Notify that the UI texture has been updated
 	ui_texture_loaded.emit(self)
 
-# Update the character sprite with the correct equipment textures
-func update_displayed_equipment() -> void:
-	%Clothing1Sprite.texture = \
-	Inventory.equipped.get(Inventory.EquipSlot.CLOTHING1).texture
-	
-	%Clothing2Sprite.texture = \
-	Inventory.equipped.get(Inventory.EquipSlot.CLOTHING2).texture
-	
-	%Equipment1Sprite.texture = \
-	Inventory.equipped.get(Inventory.EquipSlot.EQUIP1).texture
-	
-	%Equipment2Sprite.texture = \
-	Inventory.equipped.get(Inventory.EquipSlot.EQUIP2).texture
-	
-	%HelmetSprite.texture = \
-	Inventory.equipped.get(Inventory.EquipSlot.HELMET).texture
-	
-	# Re-capture character sprites for UI (in case of equipment changes)
-	ui_texture = await capture_canvas_item($CharacterSprites)
-	
-	# Notify that the UI texture has been updated
-	ui_texture_loaded.emit(self)
+func _level_transition_started(_scene_path):
+	is_moving = true
 	
 # DEPRECATED
 #func move_to(target_position: Vector2) -> bool:

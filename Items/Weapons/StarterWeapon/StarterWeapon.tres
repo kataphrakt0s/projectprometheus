@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bm5r61rs6mkf1"]
+
+[ext_resource type="Script" uid="uid://22bhyvxo5owk" path="res://Scripts/Types/Item.gd" id="1_s3oa5"]
+[ext_resource type="Texture2D" uid="uid://dx3rnnii4lerh" path="res://Spritesheets/items.png" id="2_pfqwa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6lca"]
+atlas = ExtResource("2_pfqwa")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_s3oa5")
+name = "Makeshift Dagger"
+texture = SubResource("AtlasTexture_t6lca")
+durability = 1.0
+max_durability = 1.0
+equip_slot = 4
+metadata/_custom_type_script = "uid://22bhyvxo5owk"
