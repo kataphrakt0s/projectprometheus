@@ -1,10 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://4881qpevt4uc"]
+[gd_scene load_steps=4 format=3 uid="uid://4881qpevt4uc"]
 
 [ext_resource type="Script" uid="uid://b1222s53xo7r3" path="res://World/Environment/Portal/Script/Portal.gd" id="1_l54vn"]
+[ext_resource type="Texture2D" uid="uid://bx031x6f60kt3" path="res://Spritesheets/monochrome-transparent.png" id="2_qpu7n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jg0ku"]
+atlas = ExtResource("2_qpu7n")
+region = Rect2(629, 323, 16, 16)
 
 [node name="Portal" type="Node2D" groups=["Portals", "Selectable"]]
 script = ExtResource("1_l54vn")
 locked = true
 
 [node name="PortalSprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_jg0ku")
 centered = false

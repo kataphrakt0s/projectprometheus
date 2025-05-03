@@ -1,7 +1,6 @@
 extends Character
 
 # Signal emitted when the character's UI texture is loaded
-# Carries the Selectable node reference
 signal ui_texture_loaded(node: Selectable)
 
 # Movement state flag - prevents overlapping movements
