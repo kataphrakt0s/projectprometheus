@@ -44,7 +44,7 @@ tile_set = ExtResource("1_ncof0")
 
 [node name="PortalTestLevelIndoor" parent="." instance=ExtResource("3_8ja8f")]
 z_index = 2
-position = Vector2(192, 64)
+position = Vector2(160, 96)
 locked_texture = ExtResource("4_a5fd7")
 unlocked_texture = ExtResource("3_bchrd")
 to_level = "res://World/Levels/TestLevelIndoor/Scene/TestLevelIndoor.tscn"

@@ -28,10 +28,6 @@ func _ready() -> void:
 		LevelManager.current_level_data.containers.set(chest_uid, item_container_data)
 		print("Containers data: " + str(LevelManager.current_level_data.containers))
 		
-	
-
-func open() -> void:
-	pass
 
 func _generate_id() -> String:
 	var uid = "%s|%d|%d" % [
