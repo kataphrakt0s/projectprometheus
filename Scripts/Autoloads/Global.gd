@@ -1,4 +1,4 @@
 extends Node
 
 const GRID_SIZE = 32
-var current_selection: Selectable
+var current_selection: Node2D

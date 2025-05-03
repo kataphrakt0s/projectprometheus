@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dg4ceki7jue5h"]
+
+[ext_resource type="Texture2D" uid="uid://c6kcnrlv0ru4e" path="res://Spritesheets/monsters.png" id="1_gp1ft"]
+
+[resource]
+atlas = ExtResource("1_gp1ft")
+region = Rect2(0, 64, 32, 32)

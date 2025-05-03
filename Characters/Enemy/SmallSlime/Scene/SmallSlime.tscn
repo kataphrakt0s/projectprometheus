@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ciosb2rbja4kt"]
+
+[ext_resource type="Script" uid="uid://dy5vo710543qf" path="res://Scripts/Types/Node/Enemy.gd" id="1_5e6ao"]
+[ext_resource type="Texture2D" uid="uid://dg4ceki7jue5h" path="res://Characters/Enemy/SmallSlime/Texture/SmallSlimeTexture.tres" id="2_fljjh"]
+[ext_resource type="PackedScene" uid="uid://bl3xu8fgxunxw" path="res://Scripts/Components/Selectable.tscn" id="3_5lvb5"]
+
+[node name="Enemy" type="Node2D" groups=["Enemy", "Selectable"]]
+script = ExtResource("1_5e6ao")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="EnemySprite" type="Sprite2D" parent="Visual"]
+texture = ExtResource("2_fljjh")
+centered = false
+
+[node name="Selectable" parent="." instance=ExtResource("3_5lvb5")]
+selection_name = "Small Slime"

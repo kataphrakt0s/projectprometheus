@@ -1,8 +1,5 @@
 extends Control
 
-# Emitted when an item is selected for equipping
-# signal item_selected_for_equip(item_index: int)
-
 # Currently selected item index (-1 means none selected)
 var selected_index: int = -1
 # Currently selected equipment slot

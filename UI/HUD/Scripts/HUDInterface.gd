@@ -4,8 +4,7 @@ const EMPTY_SPRITE = preload("res://UI/HUD/Textures/EmptySprite.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$"../../Player".ui_texture_loaded.connect(update_selected)
-	$"../../Cursor".selection_changed.connect(update_selected)
+	pass
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

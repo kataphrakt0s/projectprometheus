@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck28feco4lvi4"]
+
+[ext_resource type="Script" uid="uid://dy5vo710543qf" path="res://Scripts/Types/Node/Enemy.gd" id="1_u8w1j"]
+[ext_resource type="PackedScene" uid="uid://bl3xu8fgxunxw" path="res://Scripts/Components/Selectable.tscn" id="2_b52ei"]
+
+[node name="Enemy" type="Node2D" groups=["Enemy", "Selectable"]]
+script = ExtResource("1_u8w1j")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="EnemySprite" type="Sprite2D" parent="Visual"]
+
+[node name="Selectable" parent="." instance=ExtResource("2_b52ei")]

@@ -1,25 +1,18 @@
 class_name ItemContainer
-extends Selectable
+extends Node2D
 
-# Signal emitted when the container's UI texture is loaded
-signal ui_texture_loaded(node: Selectable)
 
 @export var locked_texture: Texture2D
 @export var unlocked_texture: Texture2D
 @export var item_container_data: ItemContainerData
-@onready var item_container_sprite: Sprite2D = $ItemContainerSprite
+@export var selectable_name: String
+@onready var item_container_sprite: Sprite2D = $Visual/ItemContainerSprite
 
 
 var chest_uid: String = ""
 
 func _ready() -> void:
 	update_texture()
-	
-	# Capture character sprites as a texture for UI display
-	ui_texture = await capture_canvas_item(item_container_sprite)
-	
-	# Notify listeners that the UI texture is ready
-	ui_texture_loaded.emit(self)
 	
 	chest_uid = _generate_id()
 	
@@ -48,6 +41,8 @@ func lock() -> void:
 
 func update_texture() -> void:
 	if item_container_data.locked:
-		$ItemContainerSprite.texture = locked_texture
+		item_container_sprite.texture = locked_texture
+		$Selectable.ui_texture = locked_texture
 	else:
-		$ItemContainerSprite.texture = unlocked_texture
+		item_container_sprite.texture = unlocked_texture
+		$Selectable.ui_texture = unlocked_texture

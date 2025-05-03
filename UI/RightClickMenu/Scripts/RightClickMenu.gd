@@ -31,10 +31,16 @@ func _on_cancel_button_pressed() -> void:
 
 func configure_buttons() -> void:
 	if Global.current_selection:
+		# Show Open button if selection is a container
 		if Global.current_selection is ItemContainer && Global.current_selection != null:
-			
 			$PanelContainer/VBoxContainer/OpenButton.show()
 		else:
 			$PanelContainer/VBoxContainer/OpenButton.hide()
+		
+		# Show Attack button if selection is an Enemy
+		if Global.current_selection.is_in_group("Enemy"):
+			$PanelContainer/VBoxContainer/AttackButton.show()
+		else:
+			$PanelContainer/VBoxContainer/AttackButton.hide()
 	else:
-		$PanelContainer/VBoxContainer/OpenButton.hide()
+		return

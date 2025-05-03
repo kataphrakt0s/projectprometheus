@@ -1,26 +1,20 @@
 extends Character
 
-# Signal emitted when the character's UI texture is loaded
-signal ui_texture_loaded(node: Selectable)
+
+@onready var player_sprite: Sprite2D = %PlayerSprite
 
 # Movement state flag - prevents overlapping movements
 var is_moving: bool = false
 var facing_right: bool = false:
 	set(value):
 		if value == true:
-			%CharacterSprite.flip_h = true
+			player_sprite.flip_h = true
 		else:
-			%CharacterSprite.flip_h = false
+			player_sprite.flip_h = false
 		facing_right = value
 
 
 func _ready() -> void:
-	# Capture character sprites as a texture for UI display
-	ui_texture = await capture_canvas_item($CharacterSprites)
-	
-	# Notify listeners that the UI texture is ready
-	ui_texture_loaded.emit(self)
-	
 	LevelManager.transition_started.connect(_level_transition_started)
 	
 	# Connect to level manager's transition complete signal
@@ -72,11 +66,16 @@ func attempt_move(direction: Vector2) -> void:
 		else:
 			portal.unlock()
 			
-	
 		
 	# Check if target cell is walkable (empty or portal)
 	var cell_source_id := LevelManager.tile_data.get_cell_source_id(tilemap_cell)
 	var is_obstacle := cell_source_id != -1 # -1 indicates empty cell
+	
+	# Check for enemy at target position, enemies are unwalkable
+	for enemy in get_tree().get_nodes_in_group("Enemy"):
+		if tilemap_cell == LevelManager.tile_data.local_to_map(enemy.global_position):
+			print("Cannot move onto Enemy square")
+			is_obstacle = true
 	
 	# If no obstacle, move to target position
 	if not is_obstacle:
@@ -90,10 +89,10 @@ func _on_level_ready():
 	is_moving = false
 	
 	# Re-capture character sprites for UI (in case of level changes)
-	ui_texture = await capture_canvas_item($CharacterSprites)
+	#ui_texture = await capture_canvas_item($CharacterSprites)
 	
 	# Notify that the UI texture has been updated
-	ui_texture_loaded.emit(self)
+	#ui_texture_loaded.emit(self)
 
 func _level_transition_started(_scene_path):
 	is_moving = true

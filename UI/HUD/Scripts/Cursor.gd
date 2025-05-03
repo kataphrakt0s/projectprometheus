@@ -55,7 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				get_child(1).reparent(%PopupUI, true)
 
 # Selects a Selectable node at current cursor position
-func select_under() -> Selectable:
+func select_under() -> Node2D:
 	# Check all Selectable nodes in the scene
 	for node in get_tree().get_nodes_in_group("Selectable"):
 		# If node is at cursor position, select it
@@ -94,7 +94,7 @@ func create_right_click_menu() -> void:
 	if %PopupUI.get_child_count() == 0:
 		var right_click_menu = RIGHT_CLICK_MENU.instantiate()
 		right_click_menu.scale = Vector2(0.5, 0.5)  # Scale down menu
-		right_click_menu.position += Vector2(16, 0)  # Offset position
+		right_click_menu.position += Vector2(32, 0)  # Offset position
 		add_child(right_click_menu)
 		right_click_menu.configure_buttons()
 		
@@ -105,6 +105,6 @@ func create_right_click_menu() -> void:
 		# Create new menu instance
 		var right_click_menu = RIGHT_CLICK_MENU.instantiate()
 		right_click_menu.scale = Vector2(0.5, 0.5)
-		right_click_menu.position += Vector2(16, 0)
+		right_click_menu.position += Vector2(32, 0)
 		right_click_menu.configure_buttons()
 		add_child(right_click_menu)

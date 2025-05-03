@@ -4,15 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://c2g5l5dn15n8a" path="res://Characters/Player/Textures/PlayerSprite.tres" id="2_eflof"]
 [ext_resource type="PackedScene" uid="uid://bl3xu8fgxunxw" path="res://Scripts/Components/Selectable.tscn" id="3_eflof"]
 
-[node name="Player" type="Node2D" groups=["Player"]]
+[node name="Player" type="Node2D"]
 script = ExtResource("1_vdi7l")
 
-[node name="Visual" type="Node2D" parent="."]
+[node name="CharacterSprites" type="Node2D" parent="."]
 
-[node name="PlayerSprite" type="Sprite2D" parent="Visual"]
+[node name="CharacterSprite" type="Sprite2D" parent="CharacterSprites"]
 unique_name_in_owner = true
 texture = ExtResource("2_eflof")
 centered = false
 
 [node name="Selectable" parent="." instance=ExtResource("3_eflof")]
 selection_name = "You"
+ui_texture = ExtResource("2_eflof")
