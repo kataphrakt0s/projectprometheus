@@ -114,10 +114,7 @@ func _position_player_at_exit(entered_scene_path: String):
 	# Find portal that matches the entered scene path
 	for portal_pos in portal_references:
 		var portal = portal_references[portal_pos]
-		print(portal.to_level)
-		print(entered_scene_path)
 		if portal.from_level == entered_scene_path:
-			print("target found")
 			# Calculate position one tile south (adjust GRID_SIZE as needed)
 			var exit_pos = portal_pos + Vector2i(0, 1)
 			var world_pos = tile_data.map_to_local(exit_pos)

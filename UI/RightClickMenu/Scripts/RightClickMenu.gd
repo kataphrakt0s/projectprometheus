@@ -15,8 +15,6 @@ func _on_open_button_pressed() -> void:
 	if Global.current_selection.locked:
 		Global.current_selection.unlock()
 	else:
-		#TODO
-		# Change this to open a window with the contents of the container
 		if Global.current_selection.contents.size() == 0:
 			print("No items in container!")
 		else:

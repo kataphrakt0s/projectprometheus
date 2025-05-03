@@ -2,7 +2,6 @@ class_name ItemContainer extends Selectable
 
 signal ui_texture_loaded(node: Selectable)
 
-
 @export var locked_texture: AtlasTexture
 @export var unlocked_texture: AtlasTexture
 @export var locked: bool
@@ -20,9 +19,11 @@ func _ready() -> void:
 	ui_texture_loaded.emit(self)
 
 func open() -> void:
-	for item in contents:
-		Global.player.add_item_to_inventory(item)
-
+	if !get_parent().level_data.opened_containers.has(self):
+		for item in contents:
+			Global.player.add_item_to_inventory(item)
+		get_parent().level_data.opened_containers.append(self)
+		
 func unlock() -> void:
 	locked = false
 	update_texture()

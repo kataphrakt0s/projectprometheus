@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=2 format=3 uid="uid://cf6d5cijuvcpq"]
+
+[ext_resource type="Script" uid="uid://btvf6okih8am2" path="res://Scripts/Types/Resource/LevelData.gd" id="1_d33ml"]
+
+[resource]
+script = ExtResource("1_d33ml")
+scene_path = "res://World/Levels/TestLevelIndoor/Scene/TestLevelIndoor.tscn"
+metadata/_custom_type_script = "uid://btvf6okih8am2"
