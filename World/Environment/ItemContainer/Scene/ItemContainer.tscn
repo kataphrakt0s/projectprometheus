@@ -8,7 +8,6 @@
 script = ExtResource("1_tbgcy")
 locked_texture = ExtResource("2_6hiqs")
 unlocked_texture = ExtResource("3_uqedh")
-locked = true
 
 [node name="ItemContainerSprite" type="Sprite2D" parent="."]
 centered = false

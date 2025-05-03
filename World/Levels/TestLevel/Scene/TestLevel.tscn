@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://b3bpeu6j508oa"]
+[gd_scene load_steps=8 format=4 uid="uid://b3bpeu6j508oa"]
 
 [ext_resource type="Script" uid="uid://bjps1q87e4ax7" path="res://Scripts/Types/Node/Level.gd" id="1_8ja8f"]
 [ext_resource type="TileSet" uid="uid://cy8uyv4mdmub7" path="res://Spritesheets/TileSet.tres" id="1_ncof0"]
@@ -7,8 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://c1h6xcnywa3fm" path="res://World/Environment/Portal/Textures/WoodenDoor/WoodenDoorU.tres" id="3_bchrd"]
 [ext_resource type="Texture2D" uid="uid://l385kxj1wsc" path="res://World/Environment/Portal/Textures/WoodenDoor/WoodenDoorL.tres" id="4_a5fd7"]
 [ext_resource type="PackedScene" uid="uid://1rm7uvef6kl4" path="res://World/Environment/ItemContainer/Scene/ItemContainer.tscn" id="5_7g76n"]
-[ext_resource type="Script" uid="uid://22bhyvxo5owk" path="res://Scripts/Types/Resource/Item.gd" id="6_kifid"]
-[ext_resource type="Resource" uid="uid://bm5r61rs6mkf1" path="res://Items/Weapons/StarterWeapon/StarterWeapon.tres" id="7_njl70"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("portals", "containers")]
 z_index = -1
@@ -45,5 +43,4 @@ selection_name = "Door"
 
 [node name="Container1" parent="." instance=ExtResource("5_7g76n")]
 position = Vector2(288, 128)
-contents = Array[ExtResource("6_kifid")]([ExtResource("7_njl70")])
 selection_name = "Wooden Box"

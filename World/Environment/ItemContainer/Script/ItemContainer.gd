@@ -1,29 +1,37 @@
-class_name ItemContainer extends Selectable
+class_name ItemContainer
+extends Selectable
 
-signal ui_texture_loaded(node: Selectable)
+signal container_opened(persistent_id: String)
+signal contents_changed  # Emitted when items are added/removed
 
-@export var locked_texture: AtlasTexture
-@export var unlocked_texture: AtlasTexture
-@export var locked: bool
+@export var locked_texture: Texture2D
+@export var unlocked_texture: Texture2D
+@export var locked := true
 
-@export_group("Contents")
-@export var contents: Array[Item] # Currently stored items
+var persistent_id: String = ""  # Set in _ready()
+var is_opened := false
+var contents: Array[Item] = []:  
+	set(value):
+		contents = value
+		contents_changed.emit()
 
-@onready var item_container_sprite: Sprite2D = $ItemContainerSprite
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	persistent_id = _generate_persistent_id()
 	update_texture()
-	ui_texture = await capture_canvas_item(item_container_sprite)
-	ui_texture_loaded.emit(self)
 
 func open() -> void:
-	if !get_parent().level_data.opened_containers.has(self):
-		for item in contents:
-			Global.player.add_item_to_inventory(item)
-		get_parent().level_data.opened_containers.append(self)
-		
+	if !locked and !is_opened:
+		is_opened = true
+		container_opened.emit(persistent_id)
+		update_texture()
+
+func _generate_persistent_id() -> String:
+	return "%s|%d|%d" % [
+		get_tree().current_scene.scene_file_path.get_file(),
+		int(global_position.x),
+		int(global_position.y)
+	]
+	
 func unlock() -> void:
 	locked = false
 	update_texture()
@@ -34,6 +42,6 @@ func lock() -> void:
 
 func update_texture() -> void:
 	if locked:
-		item_container_sprite.texture = locked_texture
+		$ItemContainerSprite.texture = locked_texture
 	else:
-		item_container_sprite.texture = unlocked_texture
+		$ItemContainerSprite.texture = unlocked_texture
