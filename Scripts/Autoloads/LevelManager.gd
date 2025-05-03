@@ -8,19 +8,20 @@ const TRANSITION_DURATION := 0.5
 
 var _current_level: Node
 var current_level_data: LevelData
+var level_data: Dictionary[String, LevelData]
 var _loading_screen: Control
 var loading_screen_scene: PackedScene = preload("res://UI/LoadingScreen/Scene/LoadingScreen.tscn")
 var tile_data: TileMapLayer
 var portal_references: Dictionary[Vector2i, Node]
-var _container_states := {}  # Format: {level_name: {container_id: {opened: bool, contents: Array}}}
+
 
 
 func _ready() -> void:
-	# Use call_deferred to safely add children during ready phase
 	_current_level = get_node("../Game/Level")
+	current_level_data = _current_level.level_data
+	level_data.set(_current_level.level_name, _current_level.level_data)
 	tile_data = _current_level.get_node("Data")
 	get_portals()
-	_initialize_container_states()
 
 func change_level(new_scene_path: String) -> void:
 	# Get reference to the Game node parent
@@ -64,6 +65,13 @@ func change_level(new_scene_path: String) -> void:
 	
 	# Update references
 	_current_level = new_level
+	if !level_data.has(_current_level.level_name):
+		current_level_data = _current_level.level_data
+	else:
+		current_level_data = level_data.get(_current_level.level_name)
+		print("Current level's containers: " + str(current_level_data.containers))
+	print("Current level's containers: " + str(current_level_data.containers))
+	
 	tile_data = new_level.get_node("Data") as TileMapLayer
 	if not tile_data:
 		push_warning("New level missing TileMapLayer 'Data'")
@@ -77,6 +85,7 @@ func change_level(new_scene_path: String) -> void:
 	
 	# Complete transition
 	level_loaded.emit(new_level)
+	
 	tween = create_tween()
 	tween.tween_property(_loading_screen, "modulate:a", 0.0, TRANSITION_DURATION/2)
 	await tween.finished
@@ -98,7 +107,7 @@ func register_portal(portal_node: Node2D):
 	portal_references = {}
 	var map_position = tile_data.local_to_map(portal_node.position)
 	portal_references[map_position] = portal_node
-#
+	
 func get_portals():
 	for portal in get_tree().get_nodes_in_group("Portals"):
 		register_portal(portal)
@@ -130,50 +139,3 @@ func _position_player_at_exit(entered_scene_path: String):
 			player.global_position = world_pos - Vector2(16,16)
 			cursor.global_position = world_pos - Vector2(16,16)
 			return
-
-func _initialize_container_states() -> void:
-	await get_tree().process_frame  # Wait for all nodes to load
-	
-	for container in get_tree().get_nodes_in_group("Containers"):
-		var saved_state = _container_states\
-		.get(get_current_level_name(), {})\
-		.get(container.persistent_id, {"opened": false, "contents": []})
-		
-		# Restore state
-		container.is_opened = saved_state["opened"]
-		if container.is_opened:
-			container.locked = false
-			container.contents = saved_state["contents"].duplicate()
-		
-		# Connect signals
-		if !container.container_opened.is_connected(_on_container_opened):
-			container.container_opened.connect(_on_container_opened.bind(container))
-		if !container.contents_changed.is_connected(_on_container_contents_changed):
-			container.contents_changed.connect(_on_container_contents_changed.bind(container))
-
-func _on_container_opened(container: ItemContainer) -> void:
-	var level = get_current_level_name()
-	if !_container_states.has(level):
-		_container_states[level] = {}
-	
-	_container_states[level][container.persistent_id] = {
-		"opened": true,
-		"contents": container.contents.duplicate()
-	}
-
-func _on_container_contents_changed(container: ItemContainer) -> void:
-	var level = get_current_level_name()
-	if not _container_states.has(level):
-		_container_states[level] = {}
-	
-	_container_states[level][container.persistent_id] = {
-		"opened": container.is_opened,
-		"contents": container.contents.duplicate()
-	}
-	print("Container contents updated: ", container.persistent_id)
-
-#func get_containers() -> Array[ItemContainer]:
-	#var containers: Array[ItemContainer] = []
-	#for container in get_tree().get_nodes_in_group("Containers"):
-		#containers.append(container)
-	#return containers

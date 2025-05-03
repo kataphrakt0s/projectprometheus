@@ -10,6 +10,7 @@
 [node name="Level" type="Node2D"]
 z_index = -1
 script = ExtResource("1_p488g")
+level_name = "TestLevelIndoor"
 level_data = ExtResource("2_3tsae")
 
 [node name="Terrain" type="TileMapLayer" parent="."]

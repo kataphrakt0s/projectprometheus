@@ -12,10 +12,10 @@ func _on_move_button_pressed() -> void:
 
 
 func _on_open_button_pressed() -> void:
-	if Global.current_selection.locked:
+	if Global.current_selection.item_container_data.locked:
 		Global.current_selection.unlock()
 	else:
-		if Global.current_selection.contents.size() == 0:
+		if Global.current_selection.item_container_data.contents.size() == 0:
 			print("No items in container!")
 		else:
 			$"../../HUD".add_child(ItemContainerInventory.instantiate())

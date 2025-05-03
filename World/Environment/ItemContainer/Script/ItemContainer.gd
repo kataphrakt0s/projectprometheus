@@ -1,47 +1,44 @@
 class_name ItemContainer
 extends Selectable
 
-signal container_opened(persistent_id: String)
-signal contents_changed  # Emitted when items are added/removed
-
 @export var locked_texture: Texture2D
 @export var unlocked_texture: Texture2D
-@export var locked := true
+@export var item_container_data: ItemContainerData
 
-var persistent_id: String = ""  # Set in _ready()
-var is_opened := false
-var contents: Array[Item] = []:  
-	set(value):
-		contents = value
-		contents_changed.emit()
+var chest_uid: String = ""
 
 func _ready() -> void:
-	persistent_id = _generate_persistent_id()
+	chest_uid = _generate_id()
+	
+	if !LevelManager.current_level_data.containers.has(chest_uid):
+		print("Not found in containers, adding now")
+		LevelManager.current_level_data.containers.set(chest_uid, item_container_data)
+		print("Containers data: " + str(LevelManager.current_level_data.containers))
+		
 	update_texture()
 
 func open() -> void:
-	if !locked and !is_opened:
-		is_opened = true
-		container_opened.emit(persistent_id)
-		update_texture()
+	pass
 
-func _generate_persistent_id() -> String:
-	return "%s|%d|%d" % [
-		get_tree().current_scene.scene_file_path.get_file(),
+func _generate_id() -> String:
+	var uid = "%s|%d|%d" % [
+		get_parent().level_data.scene_path,
 		int(global_position.x),
 		int(global_position.y)
 	]
+	print("Container ID: " + uid)
+	return uid
 	
 func unlock() -> void:
-	locked = false
+	item_container_data.locked = false
 	update_texture()
 	
 func lock() -> void:
-	locked = true
+	item_container_data.locked = true
 	update_texture()
 
 func update_texture() -> void:
-	if locked:
+	if item_container_data.locked:
 		$ItemContainerSprite.texture = locked_texture
 	else:
 		$ItemContainerSprite.texture = unlocked_texture

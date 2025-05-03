@@ -7,11 +7,11 @@ func _ready() -> void:
 	
 
 func _on_take_all_button_pressed() -> void:
-	if Global.current_selection.contents.size() > 0:
-		for item in Global.current_selection.contents:
+	if Global.current_selection.item_container_data.contents.size() > 0:
+		for item in Global.current_selection.item_container_data.contents:
 				print("Added item to inventory: " + item.name)
 				Inventory.contents.append(item as Object)
-		Global.current_selection.contents.clear()
+		Global.current_selection.item_container_data.contents.clear()
 	else:
 		print("No items left!")
 	populate_grid()
@@ -28,7 +28,7 @@ func populate_grid() -> void:
 			child.queue_free()
 
 	# Create TextureRects for each Item
-	for item in Global.current_selection.contents:
+	for item in Global.current_selection.item_container_data.contents:
 		if item and item.texture:  # Check item exists and has texture
 			var texture_rect = TextureRect.new()
 			texture_rect.texture = item.texture
