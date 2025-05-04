@@ -90,19 +90,19 @@ func attempt_move(direction: Vector2) -> void:
 		EventBus.advance_tick_requested.emit()	
 		is_moving = false
 		
-func get_attacked(roll: float, damage_value: float) -> void:
+func get_attacked(roll: float, damage: float) -> void:
 	var player_roll = randf()
 	if player_roll < roll:
-		print("You were hit for " + str(damage_value) + " damage!")
-		health.take_damage(damage_value)
+		print("You were hit for " + str(damage) + " damage!")
+		health.take_damage(damage)
 		%HUD.get_node("HUD").debug_update_player_hp(health.current_hit_points)
 	else:
 		print("An enemy missed an attack on you!")
 		
 
-func attack(enemy: Enemy, damage_value: float, roll: float = randf()) -> void:
+func attack(enemy: Enemy, damage: float, roll: float = randf()) -> void:
 	if randf() < roll:
-		enemy.health.take_damage(damage_value)
+		enemy.health.take_damage(damage)
 	else:
 		print("Attack missed!")
 

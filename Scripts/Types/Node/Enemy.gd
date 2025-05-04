@@ -13,13 +13,26 @@ func _ready() -> void:
 	TickManager.tick_advanced.connect(_on_tick_advanced)
 	
 	await LevelManager.level_loaded
-		
+	
+	# If this is the first time spawning:
 	if !LevelManager.current_level_data.enemies.has(enemy_id):
+		# Initialize data values:
+		health.current_hit_points = health.max_hit_points
+		enemy_data.hp = health.current_hit_points
+		enemy_data.alive = true
+		enemy_data.position = position
+		
+		# Pass data to LevelManager data store
 		LevelManager.current_level_data.enemies.set(enemy_id, enemy_data)
 	else:
+		# If this is not the first time spawning, get the data from the LevelManager
 		enemy_data = LevelManager.current_level_data.enemies.get(enemy_id)
 		print("Found enemy data for " + enemy_id)
-		position = enemy_data.position
+		if !enemy_data.alive:
+			queue_free()
+		else:
+			position = enemy_data.position
+			health.current_hit_points = enemy_data.hp
 		
 	
 

@@ -24,7 +24,8 @@ func _on_open_button_pressed() -> void:
 
 func _on_attack_button_pressed() -> void:
 	for player in get_tree().get_nodes_in_group("Player"):
-		player.attack(Global.current_selection, player.damage_value)
+		var attack_roll = randf()
+		player.attack(Global.current_selection, player.damage_value, attack_roll)
 	hide()
 
 
