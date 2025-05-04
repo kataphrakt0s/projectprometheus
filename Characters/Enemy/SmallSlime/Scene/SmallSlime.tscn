@@ -1,11 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://ciosb2rbja4kt"]
+[gd_scene load_steps=7 format=3 uid="uid://ciosb2rbja4kt"]
 
 [ext_resource type="Script" uid="uid://dy5vo710543qf" path="res://Scripts/Types/Node/Enemy.gd" id="1_5e6ao"]
+[ext_resource type="Script" uid="uid://03aftrj58nqm" path="res://Scripts/Types/Resource/EnemyData.gd" id="2_13eer"]
 [ext_resource type="Texture2D" uid="uid://dg4ceki7jue5h" path="res://Characters/Enemy/SmallSlime/Texture/SmallSlimeTexture.tres" id="2_fljjh"]
-[ext_resource type="PackedScene" uid="uid://bl3xu8fgxunxw" path="res://Scripts/Components/Selectable.tscn" id="3_5lvb5"]
+[ext_resource type="PackedScene" uid="uid://bl3xu8fgxunxw" path="res://Scripts/Components/Selectable/Selectable.tscn" id="3_5lvb5"]
+[ext_resource type="PackedScene" uid="uid://bpte1na41w0gk" path="res://Scripts/Components/Health/Health.tscn" id="4_dj6eb"]
 
-[node name="Enemy" type="Node2D" groups=["Enemy", "Selectable"]]
+[sub_resource type="Resource" id="Resource_d5t3s"]
+script = ExtResource("2_13eer")
+metadata/_custom_type_script = "uid://03aftrj58nqm"
+
+[node name="Enemy" type="Node2D" node_paths=PackedStringArray("health") groups=["Enemy", "Selectable"]]
 script = ExtResource("1_5e6ao")
+health = NodePath("Health")
+enemy_data = SubResource("Resource_d5t3s")
+damage_value = 1.0
 
 [node name="Visual" type="Node2D" parent="."]
 
@@ -15,3 +24,6 @@ centered = false
 
 [node name="Selectable" parent="." instance=ExtResource("3_5lvb5")]
 selection_name = "Small Slime"
+
+[node name="Health" parent="." instance=ExtResource("4_dj6eb")]
+max_hit_points = 4.0

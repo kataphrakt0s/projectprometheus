@@ -15,13 +15,15 @@ var tile_data: TileMapLayer
 var portal_references: Dictionary[Vector2i, Node]
 
 
-
 func _ready() -> void:
 	_current_level = get_node("../Game/Level")
 	current_level_data = _current_level.level_data
 	level_data.set(_current_level.level_name, _current_level.level_data)
 	tile_data = _current_level.get_node("Data")
 	get_portals()
+	
+	await get_tree().process_frame
+	level_loaded.emit(_current_level)
 
 func change_level(new_scene_path: String) -> void:
 	# Get reference to the Game node parent
@@ -70,7 +72,7 @@ func change_level(new_scene_path: String) -> void:
 	else:
 		current_level_data = level_data.get(_current_level.level_name)
 		print("Current level's containers: " + str(current_level_data.containers))
-	print("Current level's containers: " + str(current_level_data.containers))
+		print("Current level's enemies: " + str(current_level_data.enemies))
 	
 	tile_data = new_level.get_node("Data") as TileMapLayer
 	if not tile_data:
@@ -111,12 +113,6 @@ func register_portal(portal_node: Node2D):
 func get_portals():
 	for portal in get_tree().get_nodes_in_group("Portals"):
 		register_portal(portal)
-
-func get_current_level_name() -> String:
-	if get_tree().current_scene and get_tree().current_scene.scene_file_path:
-		return get_tree().current_scene.scene_file_path.get_file()
-	push_warning("Could not determine current level name!")
-	return "unknown_level"
 
 func _position_player_at_exit(entered_scene_path: String):
 	var game_node = get_node("../Game")

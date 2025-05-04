@@ -9,17 +9,15 @@ extends Node2D
 @onready var item_container_sprite: Sprite2D = $Visual/ItemContainerSprite
 
 
-var chest_uid: String = ""
+var container_id: String = ""
 
 func _ready() -> void:
 	update_texture()
 	
-	chest_uid = _generate_id()
+	container_id = _generate_id()
 	
-	if !LevelManager.current_level_data.containers.has(chest_uid):
-		print("Not found in containers, adding now")
-		LevelManager.current_level_data.containers.set(chest_uid, item_container_data)
-		print("Containers data: " + str(LevelManager.current_level_data.containers))
+	if !LevelManager.current_level_data.containers.has(container_id):
+		LevelManager.current_level_data.containers.set(container_id, item_container_data)
 		
 
 func _generate_id() -> String:
@@ -28,7 +26,6 @@ func _generate_id() -> String:
 		int(global_position.x),
 		int(global_position.y)
 	]
-	print("Container ID: " + uid)
 	return uid
 	
 func unlock() -> void:

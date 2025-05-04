@@ -23,7 +23,9 @@ func _on_open_button_pressed() -> void:
 
 
 func _on_attack_button_pressed() -> void:
-	pass # Replace with function body.
+	for player in get_tree().get_nodes_in_group("Player"):
+		player.attack(Global.current_selection, player.damage_value)
+	hide()
 
 
 func _on_cancel_button_pressed() -> void:

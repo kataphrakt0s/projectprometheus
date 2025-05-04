@@ -10,10 +10,13 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-func update_selected(node: Selectable) -> void:
+func update_selected(node: SelectableComponent) -> void:
 	if node:
 		%SelectedTextureRect.texture = node.ui_texture
 		%SelectedLabel.text = node.selection_name
 	else:
 		%SelectedTextureRect.texture = EMPTY_SPRITE
 		%SelectedLabel.text = "None"
+
+func debug_update_player_hp(new_value: float) -> void:
+	%PlayerHP.text = str(new_value)

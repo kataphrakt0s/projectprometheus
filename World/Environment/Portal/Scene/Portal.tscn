@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b1222s53xo7r3" path="res://World/Environment/Portal/Script/Portal.gd" id="1_l54vn"]
 [ext_resource type="Texture2D" uid="uid://bx031x6f60kt3" path="res://Spritesheets/monochrome-transparent.png" id="2_qpu7n"]
-[ext_resource type="PackedScene" uid="uid://bl3xu8fgxunxw" path="res://Scripts/Components/Selectable.tscn" id="3_jg0ku"]
+[ext_resource type="PackedScene" uid="uid://bl3xu8fgxunxw" path="res://Scripts/Components/Selectable/Selectable.tscn" id="3_jg0ku"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jg0ku"]
 atlas = ExtResource("2_qpu7n")

@@ -1,4 +1,4 @@
-class_name Selectable extends Node
+class_name SelectableComponent extends Node
 
 @export var selection_name: String
 @export var ui_texture: AtlasTexture
@@ -8,7 +8,7 @@ func _ready() -> void:
 	if get_parent().get_node("Visual"):
 		ui_texture = get_parent().get_node("Visual").get_child(0).texture
 	else:
-		print("no visual node")
+		print("No visual node found for " + get_parent().name)
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

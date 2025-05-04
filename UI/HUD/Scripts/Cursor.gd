@@ -3,7 +3,7 @@ extends Node2D
 
 # Signal emitted when cursor selects/deselects a node
 # Carries the selected Selectable node (or null if nothing selected)
-signal selection_changed(node: Selectable)
+signal selection_changed(node: SelectableComponent)
 
 # Preload the right-click menu scene
 const RIGHT_CLICK_MENU = preload("res://UI/RightClickMenu/Scene/RightClickMenu.tscn")
@@ -63,11 +63,6 @@ func select_under() -> Node2D:
 			selected_node = node
 			return selected_node
 	return null  # Return null if nothing selected
-
-# Manually select a specific node
-func select_specific(node: Node2D) -> void:
-	selected_node = node
-	selection_changed.emit(node)
 	
 # Moves cursor to target position and updates selection
 func move_cursor(target_global_pos: Vector2i) -> void:

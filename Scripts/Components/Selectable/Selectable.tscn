@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl3xu8fgxunxw"]
+
+[ext_resource type="Script" uid="uid://ca730ag70y4ns" path="res://Scripts/Components/Selectable/SelectableComponent.gd" id="1_7aloh"]
+
+[node name="Selectable" type="Node"]
+script = ExtResource("1_7aloh")

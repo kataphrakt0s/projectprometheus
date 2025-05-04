@@ -1,7 +1,11 @@
 extends Character
 
+@export var health: HealthComponent
+@export var damage_value: float
 
 @onready var player_sprite: Sprite2D = %PlayerSprite
+
+
 
 # Movement state flag - prevents overlapping movements
 var is_moving: bool = false
@@ -19,6 +23,8 @@ func _ready() -> void:
 	
 	# Connect to level manager's transition complete signal
 	LevelManager.transition_completed.connect(_on_level_ready)
+	
+	%HUD.get_node("HUD").debug_update_player_hp(health.current_hit_points)
 	
 # Process loop - handles movement input when not already moving
 func _process(_delta: float) -> void:
@@ -84,6 +90,22 @@ func attempt_move(direction: Vector2) -> void:
 		EventBus.advance_tick_requested.emit()	
 		is_moving = false
 		
+func get_attacked(roll: float, damage_value: float) -> void:
+	var player_roll = randf()
+	if player_roll < roll:
+		print("You were hit for " + str(damage_value) + " damage!")
+		health.take_damage(damage_value)
+		%HUD.get_node("HUD").debug_update_player_hp(health.current_hit_points)
+	else:
+		print("An enemy missed an attack on you!")
+		
+
+func attack(enemy: Enemy, damage_value: float, roll: float = randf()) -> void:
+	if randf() < roll:
+		enemy.health.take_damage(damage_value)
+	else:
+		print("Attack missed!")
+
 # Callback when a new level has finished loading
 func _on_level_ready():
 	is_moving = false

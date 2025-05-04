@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ckr5xgc45731c" path="res://World/Environment/ItemContainer/Textures/Chest/ChestL.tres" id="2_6hiqs"]
 [ext_resource type="Texture2D" uid="uid://dkhvif7xos0bg" path="res://World/Environment/ItemContainer/Textures/Chest/ChestU.tres" id="3_uqedh"]
 [ext_resource type="Texture2D" uid="uid://bx031x6f60kt3" path="res://Spritesheets/monochrome-transparent.png" id="4_uqedh"]
-[ext_resource type="PackedScene" uid="uid://bl3xu8fgxunxw" path="res://Scripts/Components/Selectable.tscn" id="5_y4ymp"]
+[ext_resource type="PackedScene" uid="uid://bl3xu8fgxunxw" path="res://Scripts/Components/Selectable/Selectable.tscn" id="5_y4ymp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y4ymp"]
 atlas = ExtResource("4_uqedh")
